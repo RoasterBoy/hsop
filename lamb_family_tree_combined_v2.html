@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Combined Lamb Family Tree (v2)</title>
+  <style>
+    body { font-family: sans-serif; }
+    .node circle { fill: #add8e6; stroke: steelblue; stroke-width: 2px; }
+    .node text { font-size: 12px; }
+    .link { fill: none; stroke: #ccc; stroke-width: 2px; }
+  </style>
+</head>
+<body>
+  <h2>Lamb Family Tree (All Branches, Collapsible)</h2>
+  <svg width="1200" height="900"></svg>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const width = 1200, height = 900;
+    const svg = d3.select("svg");
+    const g = svg.append("g").attr("transform", `translate(${width/3}, 40)`);
+
+    // Zoom/pan support
+    const zoom = d3.zoom()
+      .scaleExtent([0.5, 2])
+      .on("zoom", (event) => g.attr("transform", event.transform));
+    svg.call(zoom);
+
+    const tree = d3.tree().size([height - 200, width - 400]);
+    const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
+
+    d3.json("lamb_combined_tree_v2.json").then(data => {
+      const root = d3.hierarchy(data);
+      root.x0 = height / 2;
+      root.y0 = 0;
+      if (root.children) root.children.forEach(collapse);
+      update(root);
+
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+
+      function update(source) {
+        const nodes = tree(root).descendants();
+        const links = tree(root).links();
+        nodes.forEach(d => d.y = d.depth * 180);
+
+        const node = g.selectAll("g.node").data(nodes, d => d.id || (d.id = ++i));
+        const nodeEnter = node.enter().append("g").attr("class", "node")
+          .attr("transform", d => `translate(${source.y0},${source.x0})`)
+          .on("click", (event, d) => {
+            if (d.children) {
+              d._children = d.children;
+              d.children = null;
+            } else if (d._children) {
+              d.children = d._children;
+              d._children = null;
+            }
+            update(d);
+          });
+
+        nodeEnter.append("circle").attr("r", 1e-6);
+        nodeEnter.append("text").attr("dy", 3)
+          .attr("x", d => d.children || d._children ? -10 : 10)
+          .style("text-anchor", d => d.children || d._children ? "end" : "start")
+          .text(d => d.data.name);
+
+        nodeEnter.merge(node).transition().duration(500)
+          .attr("transform", d => `translate(${d.y},${d.x})`);
+        nodeEnter.merge(node).select("circle").attr("r", 6);
+
+        node.exit().transition().duration(500)
+          .attr("transform", d => `translate(${source.y},${source.x})`).remove();
+        node.exit().select("circle").attr("r", 1e-6);
+        node.exit().select("text").style("fill-opacity", 1e-6);
+
+        const link = g.selectAll("path.link").data(links, d => d.target.id);
+        link.enter().insert("path", "g").attr("class", "link")
+          .attr("d", d => {
+            const o = {x: source.x0, y: source.y0};
+            return diagonal({source: o, target: o});
+          }).merge(link).transition().duration(500).attr("d", diagonal);
+        link.exit().transition().duration(500)
+          .attr("d", d => {
+            const o = {x: source.x, y: source.y};
+            return diagonal({source: o, target: o});
+          }).remove();
+
+        nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+      }
+    });
+
+    let i = 0;
+  </script>
+</body>
+</html>
