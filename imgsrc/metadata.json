@@ -1,0 +1,1832 @@
+[
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - A. Karjalainen.jpg",
+        "extracted_image": "./BRLC - A. Karjalainen_img_01.jpg",
+        "image_bounding_box": [
+            589,
+            324,
+            880,
+            708
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "Ellen L. | 1938 - | LOT laRM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - A. Karjalainen.jpg",
+        "extracted_image": "./BRLC - A. Karjalainen_img_02.jpg",
+        "image_bounding_box": [
+            591,
+            1322,
+            876,
+            702
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "Ellen L. | 1938 - | LOT laRM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Armas R. 1903 - 1971"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Adams.jpg",
+        "extracted_image": "./BRLC - Adams_img_01.jpg",
+        "image_bounding_box": [
+            526,
+            398,
+            1502,
+            884
+        ],
+        "page_header": "ADAMS",
+        "page_footer": "LOT 2 RS (2RR Special Section) LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "ADAMS"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Adams.jpg",
+        "extracted_image": "./BRLC - Adams_img_02.jpg",
+        "image_bounding_box": [
+            702,
+            1456,
+            1112,
+            686
+        ],
+        "page_header": "ADAMS",
+        "page_footer": "LOT 2 RS (2RR Special Section) LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Miriam Troop Adams"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Around the Flagpole.jpg",
+        "extracted_image": "./BRLC - Around the Flagpole_img_01.jpg",
+        "image_bounding_box": [
+            1208,
+            407,
+            649,
+            842
+        ],
+        "page_header": "AROUND THE FLAGPOLE",
+        "page_footer": "oa | ate | ae | L. D.",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "E.S."
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Around the Flagpole.jpg",
+        "extracted_image": "./BRLC - Around the Flagpole_img_02.jpg",
+        "image_bounding_box": [
+            351,
+            435,
+            665,
+            730
+        ],
+        "page_header": "AROUND THE FLAGPOLE",
+        "page_footer": "oa | ate | ae | L. D.",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Around the Flagpole.jpg",
+        "extracted_image": "./BRLC - Around the Flagpole_img_03.jpg",
+        "image_bounding_box": [
+            1175,
+            1607,
+            633,
+            906
+        ],
+        "page_header": "AROUND THE FLAGPOLE",
+        "page_footer": "oa | ate | ae | L. D.",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Around the Flagpole.jpg",
+        "extracted_image": "./BRLC - Around the Flagpole_img_04.jpg",
+        "image_bounding_box": [
+            447,
+            1679,
+            578,
+            642
+        ],
+        "page_header": "AROUND THE FLAGPOLE",
+        "page_footer": "oa | ate | ae | L. D.",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Batchelor.jpg",
+        "extracted_image": "./BRLC - Batchelor_img_01.jpg",
+        "image_bounding_box": [
+            572,
+            321,
+            1244,
+            781
+        ],
+        "page_header": "C. BATCHELOR",
+        "page_footer": "Barbara M. His Wife | Aug. 16, 1940 - May 21, 1994 | LOT 6 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Batchelor.jpg",
+        "extracted_image": "./BRLC - Batchelor_img_02.jpg",
+        "image_bounding_box": [
+            638,
+            1325,
+            1124,
+            811
+        ],
+        "page_header": "C. BATCHELOR",
+        "page_footer": "Barbara M. His Wife | Aug. 16, 1940 - May 21, 1994 | LOT 6 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Beyette.jpg",
+        "extracted_image": "./BRLC - Beyette_img_01.jpg",
+        "image_bounding_box": [
+            734,
+            542,
+            932,
+            620
+        ],
+        "page_header": "BEYETTE",
+        "page_footer": "LOT 6a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Blais.jpg",
+        "extracted_image": "./BRLC - Blais_img_01.jpg",
+        "image_bounding_box": [
+            258,
+            358,
+            818,
+            722
+        ],
+        "page_header": "BLAIS",
+        "page_footer": "LOT 6 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Blais.jpg",
+        "extracted_image": "./BRLC - Blais_img_02.jpg",
+        "image_bounding_box": [
+            1196,
+            544,
+            788,
+            722
+        ],
+        "page_header": "BLAIS",
+        "page_footer": "LOT 6 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Blais.jpg",
+        "extracted_image": "./BRLC - Blais_img_03.jpg",
+        "image_bounding_box": [
+            359,
+            1460,
+            684,
+            434
+        ],
+        "page_header": "BLAIS",
+        "page_footer": "LOT 6 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Broom.jpg",
+        "extracted_image": "./BRLC - Broom_img_01.jpg",
+        "image_bounding_box": [
+            582,
+            635,
+            1166,
+            985
+        ],
+        "page_header": "BROOM",
+        "page_footer": "7 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Marble"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chadbourne.jpg",
+        "extracted_image": "./BRLC - Chadbourne_img_01.jpg",
+        "image_bounding_box": [
+            484,
+            525,
+            1364,
+            943
+        ],
+        "page_header": "CHADBOURNE",
+        "page_footer": "LOT 1 RQ LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "oa"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_01.jpg",
+        "image_bounding_box": [
+            970,
+            308,
+            908,
+            680
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Alphonse W. Chartier"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_02.jpg",
+        "image_bounding_box": [
+            108,
+            404,
+            740,
+            698
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Gray granite with cross etching across front"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_03.jpg",
+        "image_bounding_box": [
+            165,
+            1320,
+            594,
+            386
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Alphonse Chartier"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_04.jpg",
+        "image_bounding_box": [
+            1626,
+            1932,
+            570,
+            332
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Arthur Chartier"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_05.jpg",
+        "image_bounding_box": [
+            950,
+            1978,
+            576,
+            326
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Leah M. Roy"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Chartier.jpg",
+        "extracted_image": "./BRLC - Chartier_img_06.jpg",
+        "image_bounding_box": [
+            83,
+            1986,
+            678,
+            428
+        ],
+        "page_header": "CHARTIER",
+        "page_footer": "1923 | LOT 4 RO | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Cook.jpg",
+        "extracted_image": "./BRLC - Cook_img_01.jpg",
+        "image_bounding_box": [
+            192,
+            296,
+            1034,
+            770
+        ],
+        "page_header": "COOK",
+        "page_footer": "LOT5 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Cook.jpg",
+        "extracted_image": "./BRLC - Cook_img_02.jpg",
+        "image_bounding_box": [
+            1248,
+            1098,
+            1010,
+            704
+        ],
+        "page_header": "COOK",
+        "page_footer": "LOT5 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Hazel M. Cook"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Cook.jpg",
+        "extracted_image": "./BRLC - Cook_img_03.jpg",
+        "image_bounding_box": [
+            178,
+            1674,
+            872,
+            572
+        ],
+        "page_header": "COOK",
+        "page_footer": "LOT5 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Alfred L. Garland"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Craft, Bugda.jpg",
+        "extracted_image": "./BRLC - Craft, Bugda_img_01.jpg",
+        "image_bounding_box": [
+            198,
+            448,
+            728,
+            776
+        ],
+        "page_header": "CRAFT , BUGDA",
+        "page_footer": "Mar 18, 1940 - May 2, 1989 | LOT 5 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Black polished granite with stained glass effect"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Craft, Bugda.jpg",
+        "extracted_image": "./BRLC - Craft, Bugda_img_02.jpg",
+        "image_bounding_box": [
+            1202,
+            468,
+            758,
+            794
+        ],
+        "page_header": "CRAFT , BUGDA",
+        "page_footer": "Mar 18, 1940 - May 2, 1989 | LOT 5 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Peter W. Craft"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Craft, Bugda.jpg",
+        "extracted_image": "./BRLC - Craft, Bugda_img_03.jpg",
+        "image_bounding_box": [
+            204,
+            1544,
+            920,
+            590
+        ],
+        "page_header": "CRAFT , BUGDA",
+        "page_footer": "Mar 18, 1940 - May 2, 1989 | LOT 5 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Craft, Bugda.jpg",
+        "extracted_image": "./BRLC - Craft, Bugda_img_04.jpg",
+        "image_bounding_box": [
+            1313,
+            1754,
+            737,
+            494
+        ],
+        "page_header": "CRAFT , BUGDA",
+        "page_footer": "Mar 18, 1940 - May 2, 1989 | LOT 5 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Peter W. Craft"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - D. Batchelor.jpg",
+        "extracted_image": "./BRLC - D. Batchelor_img_01.jpg",
+        "image_bounding_box": [
+            181,
+            462,
+            1003,
+            926
+        ],
+        "page_header": "BATCHELOR",
+        "page_footer": "LOT 4a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "All the love our hearts"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - D. Batchelor.jpg",
+        "extracted_image": "./BRLC - D. Batchelor_img_02.jpg",
+        "image_bounding_box": [
+            1033,
+            1689,
+            1117,
+            766
+        ],
+        "page_header": "BATCHELOR",
+        "page_footer": "LOT 4a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Favreau.jpg",
+        "extracted_image": "./BRLC - Favreau_img_01.jpg",
+        "image_bounding_box": [
+            506,
+            515,
+            1430,
+            925
+        ],
+        "page_header": "FAVREAU",
+        "page_footer": "LOT 4 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Favreau.jpg",
+        "extracted_image": "./BRLC - Favreau_img_02.jpg",
+        "image_bounding_box": [
+            853,
+            1540,
+            684,
+            512
+        ],
+        "page_header": "FAVREAU",
+        "page_footer": "LOT 4 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Favreau.jpg",
+        "extracted_image": "./BRLC - Favreau_img_03.jpg",
+        "image_bounding_box": [
+            77,
+            1552,
+            678,
+            446
+        ],
+        "page_header": "FAVREAU",
+        "page_footer": "LOT 4 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Roger E. Favreau"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Favreau.jpg",
+        "extracted_image": "./BRLC - Favreau_img_04.jpg",
+        "image_bounding_box": [
+            1603,
+            1572,
+            696,
+            458
+        ],
+        "page_header": "FAVREAU",
+        "page_footer": "LOT 4 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Fontaine.jpg",
+        "extracted_image": "./BRLC - Fontaine_img_01.jpg",
+        "image_bounding_box": [
+            602,
+            324,
+            908,
+            566
+        ],
+        "page_header": "FONTAINE",
+        "page_footer": "LOT 4 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "FONTAINE"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Fontaine.jpg",
+        "extracted_image": "./BRLC - Fontaine_img_02.jpg",
+        "image_bounding_box": [
+            1241,
+            1176,
+            624,
+            416
+        ],
+        "page_header": "FONTAINE",
+        "page_footer": "LOT 4 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Fontaine.jpg",
+        "extracted_image": "./BRLC - Fontaine_img_03.jpg",
+        "image_bounding_box": [
+            195,
+            1830,
+            726,
+            476
+        ],
+        "page_header": "FONTAINE",
+        "page_footer": "LOT 4 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - French.jpg",
+        "extracted_image": "./BRLC - French_img_01.jpg",
+        "image_bounding_box": [
+            690,
+            344,
+            920,
+            770
+        ],
+        "page_header": "FRENCH",
+        "page_footer": "LOTS 1 RP & 2RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Heart shaped granite with flower etching"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - French.jpg",
+        "extracted_image": "./BRLC - French_img_02.jpg",
+        "image_bounding_box": [
+            191,
+            1426,
+            636,
+            434
+        ],
+        "page_header": "FRENCH",
+        "page_footer": "LOTS 1 RP & 2RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Norman E. Watts"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - French.jpg",
+        "extracted_image": "./BRLC - French_img_03.jpg",
+        "image_bounding_box": [
+            1649,
+            1426,
+            666,
+            416
+        ],
+        "page_header": "FRENCH",
+        "page_footer": "LOTS 1 RP & 2RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - French.jpg",
+        "extracted_image": "./BRLC - French_img_04.jpg",
+        "image_bounding_box": [
+            939,
+            1434,
+            612,
+            428
+        ],
+        "page_header": "FRENCH",
+        "page_footer": "LOTS 1 RP & 2RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Frilander.tiff",
+        "extracted_image": "./BRLC - Frilander_img_01.jpg",
+        "image_bounding_box": [
+            258,
+            350,
+            950,
+            662
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "FRILANDER"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Frilander.tiff",
+        "extracted_image": "./BRLC - Frilander_img_02.jpg",
+        "image_bounding_box": [
+            1427,
+            584,
+            600,
+            344
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Frilander.tiff",
+        "extracted_image": "./BRLC - Frilander_img_03.jpg",
+        "image_bounding_box": [
+            1334,
+            1160,
+            770,
+            511
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Frilander.tiff",
+        "extracted_image": "./BRLC - Frilander_img_04.jpg",
+        "image_bounding_box": [
+            210,
+            1352,
+            1040,
+            644
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Toivo Frilander 1913 - 1985"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - FrilanderJPG.jpg",
+        "extracted_image": "./BRLC - FrilanderJPG_img_01.jpg",
+        "image_bounding_box": [
+            258,
+            350,
+            950,
+            662
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "FRILANDER"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - FrilanderJPG.jpg",
+        "extracted_image": "./BRLC - FrilanderJPG_img_02.jpg",
+        "image_bounding_box": [
+            1427,
+            584,
+            600,
+            344
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - FrilanderJPG.jpg",
+        "extracted_image": "./BRLC - FrilanderJPG_img_03.jpg",
+        "image_bounding_box": [
+            1334,
+            1160,
+            770,
+            511
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - FrilanderJPG.jpg",
+        "extracted_image": "./BRLC - FrilanderJPG_img_04.jpg",
+        "image_bounding_box": [
+            210,
+            1352,
+            1040,
+            644
+        ],
+        "page_header": "FRILANDER & WIRTANEN",
+        "page_footer": "LOT 2 RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Toivo Frilander 1913 - 1985"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Giadone.jpg",
+        "extracted_image": "./BRLC - Giadone_img_01.jpg",
+        "image_bounding_box": [
+            704,
+            662,
+            1076,
+            680
+        ],
+        "page_header": "GIADONE",
+        "page_footer": "LOT 1 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - H. Shepardson.jpg",
+        "extracted_image": "./BRLC - H. Shepardson_img_01.jpg",
+        "image_bounding_box": [
+            528,
+            800,
+            1364,
+            667
+        ],
+        "page_header": "H. SHEPARDSON",
+        "page_footer": "LOT 4 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "SHEPARDSON"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Hebert.jpg",
+        "extracted_image": "./BRLC - Hebert_img_01.jpg",
+        "image_bounding_box": [
+            604,
+            632,
+            1346,
+            841
+        ],
+        "page_header": "HEBERT",
+        "page_footer": "LOT 5 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Hill.jpg",
+        "extracted_image": "./BRLC - Hill_img_01.jpg",
+        "image_bounding_box": [
+            170,
+            298,
+            848,
+            716
+        ],
+        "page_header": "HILL",
+        "page_footer": "LOT 3 RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Gray granite with flowers etched on each side"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Hill.jpg",
+        "extracted_image": "./BRLC - Hill_img_02.jpg",
+        "image_bounding_box": [
+            1252,
+            812,
+            860,
+            698
+        ],
+        "page_header": "HILL",
+        "page_footer": "LOT 3 RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Reino W. 1914"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Hill.jpg",
+        "extracted_image": "./BRLC - Hill_img_03.jpg",
+        "image_bounding_box": [
+            210,
+            1874,
+            854,
+            524
+        ],
+        "page_header": "HILL",
+        "page_footer": "LOT 3 RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Karjalainen.jpg",
+        "extracted_image": "./BRLC - Karjalainen_img_01.jpg",
+        "image_bounding_box": [
+            152,
+            438,
+            830,
+            746
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "se | Sept 13, 1978 | LOT 2a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Karjalainen.jpg",
+        "extracted_image": "./BRLC - Karjalainen_img_02.jpg",
+        "image_bounding_box": [
+            1300,
+            646,
+            632,
+            668
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "se | Sept 13, 1978 | LOT 2a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Einar Karjalainen"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Karjalainen.jpg",
+        "extracted_image": "./BRLC - Karjalainen_img_03.jpg",
+        "image_bounding_box": [
+            175,
+            1534,
+            686,
+            415
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "se | Sept 13, 1978 | LOT 2a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Karjalainen.jpg",
+        "extracted_image": "./BRLC - Karjalainen_img_04.jpg",
+        "image_bounding_box": [
+            1167,
+            2058,
+            746,
+            439
+        ],
+        "page_header": "KARJALAINEN",
+        "page_footer": "se | Sept 13, 1978 | LOT 2a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Lasoff.jpg",
+        "extracted_image": "./BRLC - Lasoff_img_01.jpg",
+        "image_bounding_box": [
+            750,
+            498,
+            853,
+            518
+        ],
+        "page_header": "LASOFF",
+        "page_footer": "6 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Star of David"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Lasoff.jpg",
+        "extracted_image": "./BRLC - Lasoff_img_02.jpg",
+        "image_bounding_box": [
+            756,
+            1620,
+            830,
+            566
+        ],
+        "page_header": "LASOFF",
+        "page_footer": "6 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Laughton-0.jpg",
+        "extracted_image": "./BRLC - Laughton-0_img_01.jpg",
+        "image_bounding_box": [
+            588,
+            637,
+            1220,
+            787
+        ],
+        "page_header": "LAUGHTON",
+        "page_footer": "10 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Lawrernce.jpg",
+        "extracted_image": "./BRLC - Lawrernce_img_01.jpg",
+        "image_bounding_box": [
+            720,
+            340,
+            878,
+            650
+        ],
+        "page_header": "LAWRENCE",
+        "page_footer": "LOT2 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "LAWRENCE"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Lawrernce.jpg",
+        "extracted_image": "./BRLC - Lawrernce_img_02.jpg",
+        "image_bounding_box": [
+            354,
+            1270,
+            848,
+            722
+        ],
+        "page_header": "LAWRENCE",
+        "page_footer": "LOT2 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Lawrernce.jpg",
+        "extracted_image": "./BRLC - Lawrernce_img_03.jpg",
+        "image_bounding_box": [
+            1310,
+            2075,
+            746,
+            421
+        ],
+        "page_header": "LAWRENCE",
+        "page_footer": "LOT2 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_01.jpg",
+        "image_bounding_box": [
+            95,
+            177,
+            706,
+            471
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "AUGUSTA"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_02.jpg",
+        "image_bounding_box": [
+            1076,
+            368,
+            998,
+            800
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_03.jpg",
+        "image_bounding_box": [
+            87,
+            839,
+            831,
+            1114
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_04.jpg",
+        "image_bounding_box": [
+            1116,
+            1428,
+            1196,
+            746
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_05.jpg",
+        "image_bounding_box": [
+            82,
+            1997,
+            662,
+            553
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Son Louis F"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-0.jpg",
+        "extracted_image": "./BRLC - Livingston-0_img_06.jpg",
+        "image_bounding_box": [
+            807,
+            2244,
+            684,
+            422
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY | (Special Section)",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Louis F. Livingston"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_01.jpg",
+        "image_bounding_box": [
+            95,
+            177,
+            706,
+            471
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "AUGUSTA"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_02.jpg",
+        "image_bounding_box": [
+            1076,
+            368,
+            998,
+            800
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_03.jpg",
+        "image_bounding_box": [
+            87,
+            839,
+            831,
+            1114
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_04.jpg",
+        "image_bounding_box": [
+            1116,
+            1428,
+            1196,
+            746
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_05.jpg",
+        "image_bounding_box": [
+            82,
+            1997,
+            662,
+            553
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Son Louis F"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Livingston-1.jpg",
+        "extracted_image": "./BRLC - Livingston-1_img_06.jpg",
+        "image_bounding_box": [
+            807,
+            2244,
+            684,
+            422
+        ],
+        "page_header": "LIVINGSTON",
+        "page_footer": "WORLD WAR II | World War II | JAN 16 1918 oF JUL 6 1992 | ‘ | PURPLE HEART | \\ | Purple Heart | LOT 1 RS LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Louis F. Livingston"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - McAdams.jpg",
+        "extracted_image": "./BRLC - McAdams_img_01.jpg",
+        "image_bounding_box": [
+            694,
+            346,
+            962,
+            806
+        ],
+        "page_header": "McADAMS",
+        "page_footer": "LOT 3 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Granite with flower etching"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - McAdams.jpg",
+        "extracted_image": "./BRLC - McAdams_img_02.jpg",
+        "image_bounding_box": [
+            455,
+            1722,
+            528,
+            398
+        ],
+        "page_header": "McADAMS",
+        "page_footer": "LOT 3 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - McAdams.jpg",
+        "extracted_image": "./BRLC - McAdams_img_03.jpg",
+        "image_bounding_box": [
+            1419,
+            1730,
+            594,
+            374
+        ],
+        "page_header": "McADAMS",
+        "page_footer": "LOT 3 RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mitchell.jpg",
+        "extracted_image": "./BRLC - Mitchell_img_01.jpg",
+        "image_bounding_box": [
+            732,
+            732,
+            860,
+            548
+        ],
+        "page_header": "MITCHELL",
+        "page_footer": "LOT 5 RO or 6 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_01.jpg",
+        "image_bounding_box": [
+            80,
+            119,
+            256,
+            354
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_02.jpg",
+        "image_bounding_box": [
+            376,
+            252,
+            1178,
+            662
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "These stones are at the corners of the lot - Birth on right"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_03.jpg",
+        "image_bounding_box": [
+            1801,
+            423,
+            389,
+            458
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_04.jpg",
+        "image_bounding_box": [
+            1640,
+            1066,
+            554,
+            344
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "DA"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_05.jpg",
+        "image_bounding_box": [
+            169,
+            1096,
+            575,
+            808
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_06.jpg",
+        "image_bounding_box": [
+            905,
+            1112,
+            622,
+            776
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Daniel Mixter"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_07.jpg",
+        "image_bounding_box": [
+            1634,
+            1472,
+            536,
+            332
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "FATHER"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_08.jpg",
+        "image_bounding_box": [
+            1782,
+            1984,
+            428,
+            308
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_09.jpg",
+        "image_bounding_box": [
+            1796,
+            2358,
+            410,
+            326
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_10.jpg",
+        "image_bounding_box": [
+            102,
+            2366,
+            506,
+            434
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "vf"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mixter.jpg",
+        "extracted_image": "./BRLC - Mixter_img_11.jpg",
+        "image_bounding_box": [
+            683,
+            2380,
+            522,
+            386
+        ],
+        "page_header": "MIATER",
+        "page_footer": "Susie O. | Dau JW & LG | Mixter | Died April 30, 1877 | Ct | 3 Yrs 1 Mo 7 Dys | ee | 11 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mustakangas.jpg",
+        "extracted_image": "./BRLC - Mustakangas_img_01.jpg",
+        "image_bounding_box": [
+            466,
+            670,
+            1190,
+            722
+        ],
+        "page_header": "MUSTAKANGAS",
+        "page_footer": "9 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Pink granite with banner etching - flowers in middle"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Mustakangas.jpg",
+        "extracted_image": "./BRLC - Mustakangas_img_02.jpg",
+        "image_bounding_box": [
+            359,
+            1750,
+            812,
+            548
+        ],
+        "page_header": "MUSTAKANGAS",
+        "page_footer": "9 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Nelson.jpg",
+        "extracted_image": "./BRLC - Nelson_img_01.jpg",
+        "image_bounding_box": [
+            150,
+            318,
+            962,
+            626
+        ],
+        "page_header": "NELSON",
+        "page_footer": "LOT 2a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "pond, reeds, and ducks flying"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Nelson.jpg",
+        "extracted_image": "./BRLC - Nelson_img_02.jpg",
+        "image_bounding_box": [
+            1228,
+            412,
+            950,
+            620
+        ],
+        "page_header": "NELSON",
+        "page_footer": "LOT 2a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Nelson.jpg",
+        "extracted_image": "./BRLC - Nelson_img_03.jpg",
+        "image_bounding_box": [
+            189,
+            1376,
+            624,
+            398
+        ],
+        "page_header": "NELSON",
+        "page_footer": "LOT 2a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Nelson.jpg",
+        "extracted_image": "./BRLC - Nelson_img_04.jpg",
+        "image_bounding_box": [
+            1176,
+            1848,
+            830,
+            446
+        ],
+        "page_header": "NELSON",
+        "page_footer": "LOT 2a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "ELIZABETH I."
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Nelson.jpg",
+        "extracted_image": "./BRLC - Nelson_img_05.jpg",
+        "image_bounding_box": [
+            213,
+            2136,
+            600,
+            362
+        ],
+        "page_header": "NELSON",
+        "page_footer": "LOT 2a RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Newton.jpg",
+        "extracted_image": "./BRLC - Newton_img_01.jpg",
+        "image_bounding_box": [
+            500,
+            442,
+            1352,
+            937
+        ],
+        "page_header": "NEWTON",
+        "page_footer": "LOT 1 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - O'Keefe.jpg",
+        "extracted_image": "./BRLC - O'Keefe_img_01.jpg",
+        "image_bounding_box": [
+            458,
+            511,
+            1286,
+            835
+        ],
+        "page_header": "O'KEEFE",
+        "page_footer": "4 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Stone taken from the home of the O'Keefe's"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - O'Keefe.jpg",
+        "extracted_image": "./BRLC - O'Keefe_img_02.jpg",
+        "image_bounding_box": [
+            357,
+            1712,
+            636,
+            488
+        ],
+        "page_header": "O'KEEFE",
+        "page_footer": "4 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Robinson & Vittum.jpg",
+        "extracted_image": "./BRLC - Robinson & Vittum_img_01.jpg",
+        "image_bounding_box": [
+            160,
+            426,
+            914,
+            668
+        ],
+        "page_header": "ROBINSON & VITTUM",
+        "page_footer": "MOMM3 US NAVY | World War II | May 8, 1927 - Nov. 29, 1998 | LOT 3 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Robinson & Vittum.jpg",
+        "extracted_image": "./BRLC - Robinson & Vittum_img_02.jpg",
+        "image_bounding_box": [
+            1240,
+            522,
+            944,
+            698
+        ],
+        "page_header": "ROBINSON & VITTUM",
+        "page_footer": "MOMM3 US NAVY | World War II | May 8, 1927 - Nov. 29, 1998 | LOT 3 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Robinson & Vittum.jpg",
+        "extracted_image": "./BRLC - Robinson & Vittum_img_03.jpg",
+        "image_bounding_box": [
+            243,
+            1814,
+            606,
+            362
+        ],
+        "page_header": "ROBINSON & VITTUM",
+        "page_footer": "MOMM3 US NAVY | World War II | May 8, 1927 - Nov. 29, 1998 | LOT 3 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Robinson & Vittum.jpg",
+        "extracted_image": "./BRLC - Robinson & Vittum_img_04.jpg",
+        "image_bounding_box": [
+            1296,
+            1828,
+            720,
+            458
+        ],
+        "page_header": "ROBINSON & VITTUM",
+        "page_footer": "MOMM3 US NAVY | World War II | May 8, 1927 - Nov. 29, 1998 | LOT 3 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Albert F. Vittum"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Rose.jpg",
+        "extracted_image": "./BRLC - Rose_img_01.jpg",
+        "image_bounding_box": [
+            730,
+            464,
+            998,
+            674
+        ],
+        "page_header": "ROSE",
+        "page_footer": "LOT 3 RS (3 RR Special Section) | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Sawyer.jpg",
+        "extracted_image": "./BRLC - Sawyer_img_01.jpg",
+        "image_bounding_box": [
+            508,
+            521,
+            1304,
+            691
+        ],
+        "page_header": "SAW YER",
+        "page_footer": "LOT 2 RO LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Granite with scene of cabin and brook"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Schafron & Hamel.jpg",
+        "extracted_image": "./BRLC - Schafron & Hamel_img_01.jpg",
+        "image_bounding_box": [
+            174,
+            527,
+            950,
+            564
+        ],
+        "page_header": "D. SCHAFRON & HAMEL",
+        "page_footer": "World War II | Feb. 5, 1926 - June 17, 1993 | LOT la RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Donald Martin Schafron"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Schafron & Hamel.jpg",
+        "extracted_image": "./BRLC - Schafron & Hamel_img_02.jpg",
+        "image_bounding_box": [
+            1300,
+            859,
+            884,
+            462
+        ],
+        "page_header": "D. SCHAFRON & HAMEL",
+        "page_footer": "World War II | Feb. 5, 1926 - June 17, 1993 | LOT la RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Ruth Schafron"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Schafron & Hamel.jpg",
+        "extracted_image": "./BRLC - Schafron & Hamel_img_03.jpg",
+        "image_bounding_box": [
+            608,
+            1600,
+            1190,
+            662
+        ],
+        "page_header": "D. SCHAFRON & HAMEL",
+        "page_footer": "World War II | Feb. 5, 1926 - June 17, 1993 | LOT la RN | LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Emile L. Hamel"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Schmidt.jpg",
+        "extracted_image": "./BRLC - Schmidt_img_01.jpg",
+        "image_bounding_box": [
+            536,
+            601,
+            1244,
+            775
+        ],
+        "page_header": "SCHMIDT",
+        "page_footer": "8 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Shepardson.jpg",
+        "extracted_image": "./BRLC - Shepardson_img_01.jpg",
+        "image_bounding_box": [
+            730,
+            343,
+            950,
+            877
+        ],
+        "page_header": "SHEPARDSON",
+        "page_footer": "LOT 3a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "SHEPARDSON"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Shepardson.jpg",
+        "extracted_image": "./BRLC - Shepardson_img_02.jpg",
+        "image_bounding_box": [
+            355,
+            1892,
+            588,
+            398
+        ],
+        "page_header": "SHEPARDSON",
+        "page_footer": "LOT 3a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Shepardson.jpg",
+        "extracted_image": "./BRLC - Shepardson_img_03.jpg",
+        "image_bounding_box": [
+            1367,
+            1926,
+            510,
+            338
+        ],
+        "page_header": "SHEPARDSON",
+        "page_footer": "LOT 3a RM LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Soderman.jpg",
+        "extracted_image": "./BRLC - Soderman_img_01.jpg",
+        "image_bounding_box": [
+            620,
+            758,
+            1196,
+            728
+        ],
+        "page_header": "SODERMAN",
+        "page_footer": "LOTS RN LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "SODERMAN"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Stevens.jpg",
+        "extracted_image": "./BRLC - Stevens_img_01.jpg",
+        "image_bounding_box": [
+            639,
+            423,
+            1146,
+            1682
+        ],
+        "page_header": "STEVENS",
+        "page_footer": "Oct 12, 1916 | Aug 13, 1990 | LOT 3 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "John A. Stevens"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Webster.jpg",
+        "extracted_image": "./BRLC - Webster_img_01.jpg",
+        "image_bounding_box": [
+            498,
+            518,
+            1442,
+            931
+        ],
+        "page_header": "WEBSTER",
+        "page_footer": "LOT 3 RP LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": "Ss La"
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Wise.jpg",
+        "extracted_image": "./BRLC - Wise_img_01.jpg",
+        "image_bounding_box": [
+            324,
+            592,
+            698,
+            734
+        ],
+        "page_header": "WISE",
+        "page_footer": "5 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Wise.jpg",
+        "extracted_image": "./BRLC - Wise_img_02.jpg",
+        "image_bounding_box": [
+            1161,
+            674,
+            678,
+            452
+        ],
+        "page_header": "WISE",
+        "page_footer": "5 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    },
+    {
+        "source_page": "/Users/kh/pages/inimage/BRLC - Wise.jpg",
+        "extracted_image": "./BRLC - Wise_img_03.jpg",
+        "image_bounding_box": [
+            829,
+            1594,
+            725,
+            464
+        ],
+        "page_header": "WISE",
+        "page_footer": "5 SPECIAL SECTION LOWER CEMETERY",
+        "page_location": "",
+        "page_additional_info": "",
+        "image_caption": ""
+    }
+]
