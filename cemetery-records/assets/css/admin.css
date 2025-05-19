@@ -1,0 +1,307 @@
+.cemetery-record-fields {
+    margin: 20px 0;
+}
+
+.cemetery-record-fields label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.cemetery-record-fields textarea {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.image-upload-fields {
+    margin-top: 20px;
+}
+
+.image-preview {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    display: inline-block;
+}
+
+.image-preview img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+/* Import/Export page styles */
+.cemetery-records-import-export .card {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.cemetery-records-import-export .card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.cemetery-records-import-export .image-paths {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    position: relative;
+}
+
+.cemetery-records-import-export .image-paths label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Path input styling */
+.cemetery-records-import-export .path-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #2c3338;
+    font-size: 14px;
+    line-height: 2;
+    min-height: 30px;
+    box-shadow: 0 0 0 transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.cemetery-records-import-export .path-input:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: 2px solid transparent;
+}
+
+.cemetery-records-import-export .path-input:hover {
+    border-color: #2271b1;
+}
+
+.cemetery-records-import-export .path-input::placeholder {
+    color: #757575;
+    opacity: 0.7;
+}
+
+/* Description text */
+.cemetery-records-import-export .description {
+    color: #646970;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* Override any WordPress admin styles */
+.wp-admin .cemetery-records-import-export .path-input {
+    max-width: none;
+    font-size: 14px;
+    line-height: 2;
+    min-height: 30px;
+}
+
+/* Ensure form elements are interactive */
+.cemetery-records-import-export form,
+.cemetery-records-import-export input,
+.cemetery-records-import-export button {
+    pointer-events: auto !important;
+}
+
+/* Record edit page styles */
+.cemetery-record-meta-box {
+    margin: 20px 0;
+}
+
+.cemetery-record-meta-box label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cemetery-record-meta-box input[type="text"],
+.cemetery-record-meta-box textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.cemetery-record-images {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0 30px;
+}
+
+.cemetery-record-image-section {
+    flex: 1;
+    min-width: 0;
+}
+
+.cemetery-record-image-section h3 {
+    margin: 0 0 15px;
+    padding: 0;
+}
+
+.cemetery-record-image-preview {
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    text-align: center;
+}
+
+.cemetery-record-image-preview img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.cemetery-record-image-preview a {
+    display: block;
+    text-decoration: none;
+}
+
+.cemetery-record-image-preview .no-image {
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+    margin: 0;
+}
+
+.cemetery-record-image-section .button {
+    margin-right: 10px;
+}
+
+.cemetery-record-fields {
+    clear: both;
+    margin-top: 30px;
+}
+
+/* Delete button styles */
+.button-delete {
+    color: #fff !important;
+    background: #dc3232 !important;
+}
+
+.button-delete:hover {
+    color: #fff !important;
+    background: #dc3232 !important;
+}
+
+/* Progress indicator */
+.import-progress {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #e5e5e5;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #46b450;
+    transition: width 0.3s ease;
+}
+
+/* Error messages */
+.cemetery-records-error {
+    color: #dc3232;
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 4px solid #dc3232;
+    background: #fff;
+}
+
+/* Import/Export Form Styles */
+.cemetery-records-import-export .image-paths input[type="text"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.cemetery-records-import-export .image-paths input[type="text"]:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.cemetery-records-import-export .image-paths input[type="text"].error {
+    border-color: #dc3232;
+}
+
+.cemetery-records-progress {
+    margin: 20px 0;
+    display: none;
+}
+
+.cemetery-records-progress-bar {
+    height: 20px;
+    background-color: #f0f0f1;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.cemetery-records-progress-bar-inner {
+    height: 100%;
+    background-color: #2271b1;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.cemetery-records-progress-text {
+    margin-top: 5px;
+    color: #50575e;
+    font-size: 12px;
+}
+
+.cemetery-records-messages {
+    margin: 20px 0;
+}
+
+.cemetery-records-success {
+    padding: 12px;
+    margin: 5px 0;
+    border-left: 4px solid #00a32a;
+    background-color: #f0f6fc;
+}
+
+.cemetery-records-import-export .file-label {
+    margin-top: 5px;
+    display: block;
+    color: #50575e;
+}
+
+/* Button Styles */
+.cemetery-records-import-export .button-delete {
+    background: #dc3232;
+    border-color: #dc3232;
+    color: white;
+}
+
+.cemetery-records-import-export .button-delete:hover {
+    background: #b32d2e;
+    border-color: #b32d2e;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 782px) {
+    .cemetery-records-import-export .image-paths input[type="text"] {
+        max-width: 100%;
+    }
+} 

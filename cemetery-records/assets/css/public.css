@@ -1,0 +1,251 @@
+/* Public styles for Cemetery Records plugin */
+
+/* Archive page styles */
+.cemetery-records-archive {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cemetery-records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.cemetery-record-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.cemetery-record-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.cemetery-record-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cemetery-record-card-content {
+    padding: 15px;
+}
+
+.cemetery-record-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    line-height: 1.4;
+}
+
+.cemetery-record-card p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Single record page styles */
+.cemetery-record-single {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.cemetery-record-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.cemetery-record-header h1 {
+    margin: 0 0 10px;
+    font-size: 2em;
+    line-height: 1.4;
+}
+
+.cemetery-record-meta {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+.cemetery-record-content {
+    margin-bottom: 30px;
+}
+
+.cemetery-record-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.cemetery-record-image {
+    position: relative;
+}
+
+.cemetery-record-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.cemetery-record-image-caption {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+}
+
+.cemetery-record-details {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 30px 0;
+}
+
+.cemetery-record-details h3 {
+    margin: 0 0 15px;
+    font-size: 1.2em;
+}
+
+.cemetery-record-details p {
+    margin: 0 0 10px;
+}
+
+.cemetery-record-details strong {
+    color: #333;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .cemetery-records-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .cemetery-record-card img {
+        height: 180px;
+    }
+
+    .cemetery-record-header h1 {
+        font-size: 1.8em;
+    }
+
+    .cemetery-record-images {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cemetery-records-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cemetery-record-card img {
+        height: 200px;
+    }
+
+    .cemetery-record-header h1 {
+        font-size: 1.5em;
+    }
+}
+
+.cemetery-record-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.cemetery-record {
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.cemetery-record .entry-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.cemetery-record .entry-title {
+    margin: 0;
+    color: #333;
+    font-size: 2rem;
+    line-height: 1.4;
+}
+
+.cemetery-record h2 {
+    color: #555;
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.record-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.extracted-image, .source-page {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.extracted-image figure, .source-page figure {
+    margin: 0;
+}
+
+.extracted-image img, .source-page img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+figcaption {
+    margin-top: 1rem;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.additional-info, .page-location, .page-header, .page-footer {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.info-content {
+    line-height: 1.6;
+    color: #333;
+}
+
+.info-content p {
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+    .cemetery-record {
+        padding: 1rem;
+    }
+
+    .record-images {
+        grid-template-columns: 1fr;
+    }
+
+    .cemetery-record .entry-title {
+        font-size: 1.75rem;
+    }
+} 
