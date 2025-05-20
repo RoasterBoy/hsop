@@ -134,60 +134,24 @@
 
 .cemetery-record-images {
     display: flex;
-    gap: 30px;
-    margin: 20px 0 30px;
+    gap: 20px;
+    margin-top: 15px;
 }
 
-.cemetery-record-image-section {
+.cemetery-record-image {
     flex: 1;
-    min-width: 0;
+    max-width: 300px;
 }
 
-.cemetery-record-image-section h3 {
-    margin: 0 0 15px;
-    padding: 0;
-}
-
-.cemetery-record-image-preview {
-    margin-bottom: 15px;
-    background: #f9f9f9;
-    border: 1px solid #e5e5e5;
-    padding: 10px;
-    text-align: center;
-}
-
-.cemetery-record-image-preview img {
+.cemetery-record-image img {
     max-width: 100%;
     height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.cemetery-record-image-preview a {
-    display: block;
-    text-decoration: none;
-}
-
-.cemetery-record-image-preview .no-image {
-    padding: 20px;
-    color: #666;
-    font-style: italic;
-    margin: 0;
-}
-
-.cemetery-record-image-section .button {
-    margin-right: 10px;
-}
-
-.cemetery-record-fields {
-    clear: both;
-    margin-top: 30px;
 }
 
 /* Delete button styles */
 .button-delete {
-    color: #fff !important;
-    background: #dc3232 !important;
+    color: #white !important;
+    border-color: #dc3232 !important;
 }
 
 .button-delete:hover {

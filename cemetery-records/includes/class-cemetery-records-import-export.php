@@ -8,7 +8,10 @@ class Cemetery_Records_Import_Export {
         'tiff' => 'image/tiff',
         'png' => 'image/png'
     );
-    
+    // Add a property to track if we are in an import action context
+    private $is_processing_import_action = false;
+    private $current_import_timestamp = null; // To store the timestamp for the current import
+
     private $default_fields = array(
         'extracted_image',
         'image_caption',
@@ -93,6 +96,7 @@ class Cemetery_Records_Import_Export {
 
         // Set file paths with unique timestamp
         $timestamp = date('Y-m-d-His');
+        $this->current_import_timestamp = $timestamp; // Store timestamp for this import
         $this->log_file = $required_dirs['logs'] . '/import-' . $timestamp . '.log';
         $this->progress_file = $required_dirs['logs'] . '/import-progress-' . $timestamp . '.json';
     }
@@ -188,7 +192,8 @@ class Cemetery_Records_Import_Export {
 
             $timestamp = current_time('Y-m-d H:i:s');
             $memory_usage = size_format(memory_get_usage(true));
-            $log_entry = "[$timestamp] [$type] [Memory: $memory_usage] $message\n";
+            $peak_memory = size_format(memory_get_peak_usage(true)); 
+            $log_entry = "[$timestamp] [$type] [Memory: $memory_usage, Peak: $peak_memory] $message\n";
             
             $written = @file_put_contents($this->log_file, $log_entry, FILE_APPEND | LOCK_EX);
             
@@ -476,6 +481,24 @@ class Cemetery_Records_Import_Export {
 
     public function import_records() {
         try {
+            // Set a flag to indicate we are processing an import action
+            $this->is_processing_import_action = true;
+            
+            // Check for existing import flag to prevent restart
+            $import_flag_key = 'cemetery_records_import_in_progress';
+            $import_timestamp = get_transient($import_flag_key);
+            
+            if ($import_timestamp && $import_timestamp !== $this->current_import_timestamp) {
+                $this->log_message("Detected attempt to restart import. Previous import still in progress: " . $import_timestamp);
+                $this->log_message("Current timestamp: " . $this->current_import_timestamp);
+                wp_redirect(admin_url('edit.php?post_type=cemetery_record&page=cemetery-records-import-export&error=import_in_progress'));
+                session_write_close();
+                exit;
+            }
+            
+            // Set flag that import is in progress with this timestamp
+            set_transient($import_flag_key, $this->current_import_timestamp, 3600); // 1 hour timeout
+            
             // Start logging
             $this->log_message("Starting import process");
             $this->log_message("POST data: " . print_r($_POST, true));
@@ -584,6 +607,16 @@ class Cemetery_Records_Import_Export {
             
             $this->log_message("Import completed. Success: {$results['imported']}, Failed: {$results['failed']}, Images Success: {$results['images_success']}, Images Failed: {$results['images_failed']}");
 
+            // Final cleanup
+            $this->cleanup_final_import($results);
+
+            // Mark import as complete before redirect
+            delete_transient($import_flag_key);
+            set_transient('cemetery_records_import_completed', $this->current_import_timestamp, 86400); // 24 hour record
+            
+            // Write session and close it
+            session_write_close();
+
             // Add log file to redirect URL
             wp_redirect(add_query_arg(
                 array(
@@ -601,8 +634,42 @@ class Cemetery_Records_Import_Export {
         } catch (Exception $e) {
             $this->log_message("Fatal error during import: " . $e->getMessage(), "error");
             $this->log_message("Stack trace: " . $e->getTraceAsString(), "error");
+            
+            // Clear import flag on error
+            delete_transient('cemetery_records_import_in_progress');
+            
+            // Clean up session
+            session_write_close();
+            
             wp_die('Import failed: ' . $e->getMessage());
+            exit;
         }
+    }
+
+    /**
+     * Clean up resources after import completes
+     */
+    private function cleanup_final_import($results) {
+        $this->log_message("Performing final cleanup...");
+        
+        // Ensure all database transactions are closed
+        global $wpdb;
+        $wpdb->query('COMMIT');
+        
+        // Force garbage collection
+        if (function_exists('gc_collect_cycles')) {
+            $cycles = gc_collect_cycles();
+            $this->log_message("Garbage collection completed: {$cycles} cycles collected");
+        }
+        
+        // Log memory state after import
+        $this->log_detailed_memory_state("Final Import State");
+        
+        // Clear caches
+        $this->source_page_cache = array();
+        $this->source_page_reference_count = array();
+        
+        $this->log_message("Final cleanup completed");
     }
 
     private function validate_and_normalize_path($path) {
@@ -719,6 +786,11 @@ class Cemetery_Records_Import_Export {
                 $this->log_message("Processing record {$record_number} of {$this->total_records}");
                 
                 try {
+                    // Check if we're reaching PHP execution time limit
+                    if (function_exists('set_time_limit')) {
+                        @set_time_limit(300); // Reset time limit for each record
+                    }
+                    
                     // Save progress before processing each record
                     $this->save_progress($index);
                     
@@ -743,7 +815,20 @@ class Cemetery_Records_Import_Export {
 
                 } catch (Exception $e) {
                     $this->handle_record_error($e, $record_number, $results);
+                    
+                    // Check if we should continue processing
+                    if ($results['failed'] > 10 && $results['imported'] == 0) {
+                        // If we've had 10 failures and no successful imports, abort
+                        throw new Exception("Aborting import after multiple consecutive failures");
+                    }
+                    
                     continue;
+                }
+                
+                // Prevent memory issues by occasionally forcing garbage collection
+                if ($record_number % 50 == 0) {
+                    $this->log_message("Periodic memory cleanup at record {$record_number}");
+                    $this->cleanup_memory("periodic_record_{$record_number}");
                 }
             }
 
@@ -768,6 +853,24 @@ class Cemetery_Records_Import_Export {
             $this->log_message("Stack trace: " . $e->getTraceAsString(), "error");
             throw $e;
         }
+    }
+
+    /**
+     * Clean up memory resources
+     */
+    private function cleanup_memory($context = "general") {
+        $this->log_message("Memory state before cleanup ({$context}): " . size_format(memory_get_usage(true)));
+        
+        // Clear internal caches that are safe to reset
+        $this->source_page_cache = array();
+        
+        // Force garbage collection if available
+        if (function_exists('gc_collect_cycles')) {
+            $cycles = gc_collect_cycles();
+            $this->log_message("Garbage collection ({$context}): {$cycles} cycles collected");
+        }
+        
+        $this->log_message("Memory state after cleanup ({$context}): " . size_format(memory_get_usage(true)));
     }
 
     private function process_single_record_with_timeout($record, $record_number, $extracted_images_path, $source_pages_path, &$results) {
@@ -829,6 +932,10 @@ class Cemetery_Records_Import_Export {
                 throw new Exception("Image processing timeout for record {$record_number} (elapsed: {$elapsed_time}s)");
             }
 
+            // Add record number to metadata for reference
+            update_post_meta($post_id, '_cemetery_import_record_number', $record_number);
+            update_post_meta($post_id, '_cemetery_import_timestamp', $this->current_import_timestamp);
+
             // Commit transaction
             $this->log_message("Committing transaction for record {$record_number}");
             $wpdb->query('COMMIT');
@@ -840,6 +947,9 @@ class Cemetery_Records_Import_Export {
             $this->log_message("Successfully " . ($existing_post_id ? "updated" : "completed") . " record {$record_number}");
             $this->log_message("Memory usage after processing: " . size_format(memory_get_usage(true)));
             $this->log_message("Total processing time: " . (time() - $start_time) . " seconds");
+            
+            $this->log_message("Record {$record_number} processed in " . (time() - $start_time) . " seconds. Memory: " . 
+                size_format(memory_get_usage(true)) . ", Peak: " . size_format(memory_get_peak_usage(true)));
             
             return true;
 
@@ -860,6 +970,26 @@ class Cemetery_Records_Import_Export {
             
             throw $e;
         }
+    }
+
+    /**
+     * Validate that a record has the minimum required fields
+     */
+    private function validate_record($record) {
+        if (!is_array($record)) {
+            return false;
+        }
+        
+        // Validate required fields
+        $required_fields = array('page_header', 'page_location');
+        foreach ($required_fields as $field) {
+            if (!isset($record[$field]) || empty($record[$field])) {
+                $this->log_message("Missing required field: {$field}", "error");
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**
@@ -1169,6 +1299,7 @@ class Cemetery_Records_Import_Export {
                 $results['images_failed']++;
                 $this->log_message("Error processing source page: " . $e->getMessage(), "error");
                 $this->log_message("Stack trace: " . $e->getTraceAsString(), "error");
+                // Continue with the rest of the record processing
                 return true;
             }
 
@@ -1188,6 +1319,42 @@ class Cemetery_Records_Import_Export {
             
             return false;
         }
+    }
+
+    /**
+     * Get attachment ID from URL
+     */
+    private function get_attachment_id_from_url($url) {
+        global $wpdb;
+        
+        // Try to get the attachment ID from the database
+        $attachment = $wpdb->get_col($wpdb->prepare(
+            "SELECT ID FROM $wpdb->posts WHERE guid = %s OR guid = %s;", 
+            $url,
+            str_replace('http:', 'https:', $url)
+        ));
+        
+        if (!empty($attachment[0])) {
+            return $attachment[0];
+        }
+        
+        // If not found, try to parse the URL and get the image name
+        $parsed_url = parse_url($url);
+        if (isset($parsed_url['path'])) {
+            $filename = basename($parsed_url['path']);
+            
+            // Try to find attachment by filename
+            $attachment_id = $wpdb->get_var($wpdb->prepare(
+                "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value LIKE %s",
+                '%' . $wpdb->esc_like($filename)
+            ));
+            
+            if ($attachment_id) {
+                return $attachment_id;
+            }
+        }
+        
+        return false;
     }
 
     private function get_image_filename($value, $type = 'extracted') {
@@ -1337,6 +1504,53 @@ class Cemetery_Records_Import_Export {
         }
     }
 
+    /**
+     * Copy a file in chunks to avoid memory issues with large files
+     */
+    private function copy_file_with_chunks($source_file, $dest_file, $file_size, $chunk_size) {
+        $this->log_message("Copying file in chunks: $source_file to $dest_file (size: " . size_format($file_size) . ")");
+        
+        $source = fopen($source_file, 'rb');
+        $dest = fopen($dest_file, 'wb');
+        
+        if (!$source || !$dest) {
+            throw new Exception("Failed to open source or destination file for chunked copy");
+        }
+        
+        $bytes_copied = 0;
+        $chunk_count = 0;
+        
+        while (!feof($source)) {
+            $chunk = fread($source, $chunk_size);
+            if ($chunk === false) {
+                throw new Exception("Error reading from source file during chunked copy");
+            }
+            
+            $write_result = fwrite($dest, $chunk);
+            if ($write_result === false) {
+                throw new Exception("Error writing to destination file during chunked copy");
+            }
+            
+            $bytes_copied += strlen($chunk);
+            $chunk_count++;
+            
+            if ($chunk_count % 10 == 0) {
+                $progress = round(($bytes_copied / $file_size) * 100, 2);
+                $this->log_message("Chunked copy progress: {$progress}% complete ({$bytes_copied} of {$file_size} bytes)");
+                
+                // Check for memory issues and clean up if needed
+                if ($this->should_cleanup_memory()) {
+                    $this->cleanup_memory("chunked_copy");
+                }
+            }
+        }
+        
+        fclose($source);
+        fclose($dest);
+        
+        $this->log_message("Chunked copy completed: $source_file to $dest_file");
+    }
+
     private function get_or_create_source_page_with_timeout($image_path, $post_id, $timeout) {
         $start_time = microtime(true);
         $cache_key = md5($image_path);
@@ -1347,6 +1561,13 @@ class Cemetery_Records_Import_Export {
                 $source_page_id = $this->source_page_cache[$cache_key];
                 if (get_post_type($source_page_id) === 'attachment') {
                     $this->log_message("Reusing cached source page (ID: {$source_page_id})");
+                    
+                    // Track reference count for this source page
+                    if (!isset($this->source_page_reference_count[$source_page_id])) {
+                        $this->source_page_reference_count[$source_page_id] = 0;
+                    }
+                    $this->source_page_reference_count[$source_page_id]++;
+                    
                     return $source_page_id;
                 }
                 unset($this->source_page_cache[$cache_key]);
@@ -1361,6 +1582,13 @@ class Cemetery_Records_Import_Export {
             $existing_id = $this->find_existing_source_page($image_path);
             if ($existing_id) {
                 $this->source_page_cache[$cache_key] = $existing_id;
+                
+                // Track reference count for this source page
+                if (!isset($this->source_page_reference_count[$existing_id])) {
+                    $this->source_page_reference_count[$existing_id] = 0;
+                }
+                $this->source_page_reference_count[$existing_id]++;
+                
                 return $existing_id;
             }
 
@@ -1381,6 +1609,10 @@ class Cemetery_Records_Import_Export {
             if ($source_page_id) {
                 $this->source_page_cache[$cache_key] = $source_page_id;
                 update_post_meta($source_page_id, '_cemetery_source_page_hash', $cache_key);
+                
+                // Initialize reference count for new source page
+                $this->source_page_reference_count[$source_page_id] = 1;
+                
                 return $source_page_id;
             }
 
@@ -1476,6 +1708,10 @@ class Cemetery_Records_Import_Export {
             wp_delete_post($record->ID, true);
             $deleted_count++;
         }
+
+        // Clear transients related to imports
+        delete_transient('cemetery_records_import_in_progress');
+        delete_transient('cemetery_records_import_completed');
 
         // Redirect back with results
         wp_redirect(add_query_arg(
@@ -1618,15 +1854,22 @@ class Cemetery_Records_Import_Export {
             $this->log_message("File not found. Directory contents of: $directory");
             if ($handle = opendir($directory)) {
                 $files = array();
+                $count = 0;
                 while (false !== ($entry = readdir($handle))) {
                     if ($entry !== '.' && $entry !== '..') {
                         $files[] = $entry;
+                        $count++;
+                        if ($count >= 50) {
+                            $files[] = '... (more files, listing truncated)';
+                            break;
+                        }
                     }
                 }
                 closedir($handle);
                 
                 // Sort files for easier reading
                 sort($files);
+                $this->log_message("Found " . count($files) . " files in directory");
                 foreach ($files as $file) {
                     $this->log_message("- $file");
                 }
@@ -1785,7 +2028,7 @@ class Cemetery_Records_Import_Export {
                 }
             } catch (Exception $e) {
                 // If metadata generation fails, create minimal metadata
-                $this->log_message("Metadata generation failed, using minimal metadata");
+                $this->log_message("Metadata generation failed, using minimal metadata: " . $e->getMessage());
                 $attach_data = array(
                     'file' => $year_month . '/' . $filename,
                     'sizes' => array()
@@ -1802,6 +2045,9 @@ class Cemetery_Records_Import_Export {
 
             // Add custom meta to identify the image type
             update_post_meta($attach_id, '_cemetery_image_type', $type);
+            
+            // Store the original filename for reference
+            update_post_meta($attach_id, "_{$type}_image_original_name", basename($file_path));
 
             // If this is an extracted image, set it as the featured image
             if ($type === 'extracted') {
@@ -1851,6 +2097,13 @@ class Cemetery_Records_Import_Export {
             $_SESSION['source_pages_path'] = sanitize_text_field($_POST['source_pages_path']);
         }
 
+        // Save paths to database as well for persistence
+        update_option('cemetery_records_extracted_images_path', $_SESSION['extracted_images_path'] ?? '');
+        update_option('cemetery_records_source_pages_path', $_SESSION['source_pages_path'] ?? '');
+
+        // Write session before sending response
+        session_write_close();
+
         // Send JSON response
         wp_send_json_success(array(
             'message' => 'Paths saved successfully',
@@ -1858,4 +2111,28 @@ class Cemetery_Records_Import_Export {
             'source_path' => $_SESSION['source_pages_path'] ?? ''
         ));
     }
-} 
+    
+    /**
+     * Destructor to ensure proper cleanup
+     */
+    public function __destruct() {
+        try {
+            // If we were processing an import, log the end
+            if ($this->is_processing_import_action) {
+                $this->log_message("Import process ended - destructor called");
+                $this->log_detailed_memory_state("Destructor");
+                
+                // Ensure open database transactions are closed
+                global $wpdb;
+                $wpdb->query('COMMIT');
+            }
+            
+            // Close session if it's active
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                session_write_close();
+            }
+        } catch (Exception $e) {
+            error_log('Cemetery Records Error in destructor: ' . $e->getMessage());
+        }
+    }
+}
