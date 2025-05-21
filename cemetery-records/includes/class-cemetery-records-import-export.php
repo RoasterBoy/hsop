@@ -1,6 +1,11 @@
 <?php
 
 class Cemetery_Records_Import_Export {
+
+private $consecutive_failures = 0;
+private $max_consecutive_failures = 5; // Adjust as needed
+private $retry_delay = 2; // seconds between retries
+
     private $supported_image_types = array(
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
@@ -35,17 +40,17 @@ class Cemetery_Records_Import_Export {
 
     public function __construct() {
         try {
-            // Start session if not already started
-            if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
-                session_start();
-            }
-            
+        add_action('init', array($this, 'init_session'), 5); // Priority 5 to run early but not too early
+        // Initialize state tracking
             // Initialize state tracking
             $this->init_state();
             
             // Setup directories and logging
             $this->setup_directories();
-            
+            // Start session if not already started
+            if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+                session_start();
+            }
             // Initialize logging system
             $this->init_logging();
             
@@ -57,7 +62,14 @@ class Cemetery_Records_Import_Export {
             throw $e;
         }
     }
-
+// New method to handle session initialization
+public function init_session() {
+    // Start session if not already started
+    if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+        session_start();
+        // Don't close session here - we'll do it at specific points
+    }
+}
     private function init_state() {
         $this->total_records = 0;
         $this->processed_records = 0;
@@ -227,20 +239,22 @@ class Cemetery_Records_Import_Export {
             $this->last_progress_time = $current_time;
         }
     }
+public function init() {
+    // Register the init_session method (if not done in constructor)
+    add_action('init', array($this, 'init_session'), 5);
 
-    public function init() {
-        // Check user capabilities before adding admin actions
-        if (current_user_can('manage_options')) {
-            add_action('admin_post_export_cemetery_records', array($this, 'export_records'));
-            add_action('admin_post_import_cemetery_records', array($this, 'import_records'));
-            add_action('admin_post_delete_all_records', array($this, 'delete_all_records'));
-            add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-            add_filter('cemetery_records_export_fields', array($this, 'filter_export_fields'));
-            
-            // Add action to save paths to session
-            add_action('admin_post_save_image_paths', array($this, 'save_image_paths'));
-        }
+    // Check user capabilities before adding admin actions
+    if (current_user_can('manage_options')) {
+        add_action('admin_post_export_cemetery_records', array($this, 'export_records'));
+        add_action('admin_post_import_cemetery_records', array($this, 'import_records'));
+        add_action('admin_post_delete_all_records', array($this, 'delete_all_records'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+        add_filter('cemetery_records_export_fields', array($this, 'filter_export_fields'));
+        
+        // Add action to save paths to session
+        add_action('admin_post_save_image_paths', array($this, 'save_image_paths'));
     }
+}
 
     public function enqueue_admin_scripts($hook) {
         if (strpos($hook, 'cemetery-records-import-export') !== false) {
@@ -265,6 +279,9 @@ class Cemetery_Records_Import_Export {
     }
 
     public function render_page() {
+            if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+        session_start();
+    }
         // Check user capabilities
         if (!current_user_can('manage_options')) {
             wp_die(__('You do not have sufficient permissions to access this page.', 'cemetery-records'));
@@ -399,7 +416,7 @@ class Cemetery_Records_Import_Export {
         $args = array(
             'post_type' => 'cemetery_record',
             'posts_per_page' => -1,
-            'post_status' => 'pending'
+            'post_status' => 'publish',
         );
 
         $records = get_posts($args);
@@ -481,8 +498,15 @@ class Cemetery_Records_Import_Export {
 
     public function import_records() {
         try {
+            if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+                session_start();
+    }
             // Set a flag to indicate we are processing an import action
             $this->is_processing_import_action = true;
+
+            $extracted_images_path = isset($_SESSION['extracted_images_path']) ? $_SESSION['extracted_images_path'] : '';
+            $source_pages_path = isset($_SESSION['source_pages_path']) ? $_SESSION['source_pages_path'] : '';
+  
             
             // Check for existing import flag to prevent restart
             $import_flag_key = 'cemetery_records_import_in_progress';
@@ -504,6 +528,10 @@ class Cemetery_Records_Import_Export {
             $this->log_message("POST data: " . print_r($_POST, true));
             $this->log_message("FILES data: " . print_r($_FILES, true));
             
+                   // Close session after reading any values from it
+        // This will release the session lock before the long-running import process
+        session_write_close();
+
             if (!isset($_POST['cemetery_records_import_nonce'])) {
                 $this->log_message("Missing nonce", "error");
                 wp_die('Invalid request - missing nonce');
@@ -760,101 +788,104 @@ class Cemetery_Records_Import_Export {
             : 'Unknown upload error';
     }
 
-    public function process_import_data($import_data, $extracted_images_path, $source_pages_path) {
-        try {
-            $results = array(
-                'imported' => 0,
-                'failed' => 0,
-                'images_success' => 0,
-                'images_failed' => 0,
-                'errors' => array()
-            );
+ 
+public function process_import_data($import_data, $extracted_images_path, $source_pages_path) {
+    try {
+        $results = array(
+            'imported' => 0,
+            'failed' => 0,
+            'images_success' => 0,
+            'images_failed' => 0,
+            'errors' => array()
+        );
 
-            $this->log_message("Starting process_import_data");
-            $this->log_message("Memory usage at start: " . memory_get_usage(true) . " bytes");
-            $this->log_message("Memory peak: " . memory_get_peak_usage(true) . " bytes");
+        $this->log_message("Starting process_import_data");
+        $this->log_message("Memory usage at start: " . memory_get_usage(true) . " bytes");
+        $this->log_message("Memory peak: " . memory_get_peak_usage(true) . " bytes");
 
-            if (!is_array($import_data)) {
-                throw new Exception('Invalid import data format');
-            }
-
-            $this->total_records = count($import_data);
-            $this->log_message("Processing {$this->total_records} records");
-
-            foreach ($import_data as $index => $record) {
-                $record_number = $index + 1;
-                $this->log_message("Processing record {$record_number} of {$this->total_records}");
-                
-                try {
-                    // Check if we're reaching PHP execution time limit
-                    if (function_exists('set_time_limit')) {
-                        @set_time_limit(300); // Reset time limit for each record
-                    }
-                    
-                    // Save progress before processing each record
-                    $this->save_progress($index);
-                    
-                    // Process the record with timeout monitoring
-                    $this->process_single_record_with_timeout(
-                        $record,
-                        $record_number,
-                        $extracted_images_path,
-                        $source_pages_path,
-                        $results
-                    );
-
-                    // Log progress after each successful record
-                    $this->log_message("Successfully processed record {$record_number}");
-                    $this->log_progress();
-
-                    // Cleanup memory if needed
-                    if ($this->should_cleanup_memory()) {
-                        $this->log_message("Performing memory cleanup after record {$record_number}");
-                        $this->cleanup_memory("after_record_{$record_number}");
-                    }
-
-                } catch (Exception $e) {
-                    $this->handle_record_error($e, $record_number, $results);
-                    
-                    // Check if we should continue processing
-                    if ($results['failed'] > 10 && $results['imported'] == 0) {
-                        // If we've had 10 failures and no successful imports, abort
-                        throw new Exception("Aborting import after multiple consecutive failures");
-                    }
-                    
-                    continue;
-                }
-                
-                // Prevent memory issues by occasionally forcing garbage collection
-                if ($record_number % 50 == 0) {
-                    $this->log_message("Periodic memory cleanup at record {$record_number}");
-                    $this->cleanup_memory("periodic_record_{$record_number}");
-                }
-            }
-
-            $this->log_message("Import processing completed");
-            $this->log_message("Final results:");
-            $this->log_message("- Imported: {$results['imported']}");
-            $this->log_message("- Failed: {$results['failed']}");
-            $this->log_message("- Images Success: {$results['images_success']}");
-            $this->log_message("- Images Failed: {$results['images_failed']}");
-            
-            if (!empty($results['errors'])) {
-                $this->log_message("Errors encountered:");
-                foreach ($results['errors'] as $error) {
-                    $this->log_message("- " . $error);
-                }
-            }
-
-            return $results;
-
-        } catch (Exception $e) {
-            $this->log_message("Fatal error in process_import_data: " . $e->getMessage(), "error");
-            $this->log_message("Stack trace: " . $e->getTraceAsString(), "error");
-            throw $e;
+        if (!is_array($import_data)) {
+            throw new Exception('Invalid import data format');
         }
-    }
 
+        $this->total_records = count($import_data);
+        $this->log_message("Processing {$this->total_records} records");
+        
+        // Reset consecutive failures counter at the start
+        $this->consecutive_failures = 0;
+
+        foreach ($import_data as $index => $record) {
+            $record_number = $index + 1;
+            $this->log_message("Processing record {$record_number} of {$this->total_records}");
+            
+            try {
+                // Save progress before processing each record
+                $this->save_progress($index);
+                
+                // Process the record with timeout monitoring
+                $this->process_single_record_with_timeout(
+                    $record,
+                    $record_number,
+                    $extracted_images_path,
+                    $source_pages_path,
+                    $results
+                );
+
+                // Record was successful, reset consecutive failures count
+                $this->consecutive_failures = 0;
+
+                // Log progress after each successful record
+                $this->log_message("Successfully processed record {$record_number}");
+                $this->log_progress();
+
+                // Cleanup memory if needed
+                if ($this->should_cleanup_memory()) {
+                    $this->log_message("Performing memory cleanup after record {$record_number}");
+                    $this->cleanup_memory("after_record_{$record_number}");
+                }
+
+            } catch (Exception $e) {
+                $this->consecutive_failures++;
+                $this->log_message("Consecutive failures: {$this->consecutive_failures}/{$this->max_consecutive_failures}", "warning");
+                
+                $this->handle_record_error($e, $record_number, $results);
+                
+                // Check if we've had too many consecutive failures
+                if ($this->consecutive_failures >= $this->max_consecutive_failures) {
+                    throw new Exception("Aborting import after multiple consecutive failures");
+                }
+                
+                // If we haven't hit the limit, add a small delay and continue
+                if ($this->retry_delay > 0) {
+                    $this->log_message("Pausing for {$this->retry_delay} seconds before next record");
+                    sleep($this->retry_delay);
+                }
+                
+                continue;
+            }
+        }
+
+        $this->log_message("Import processing completed");
+        $this->log_message("Final results:");
+        $this->log_message("- Imported: {$results['imported']}");
+        $this->log_message("- Failed: {$results['failed']}");
+        $this->log_message("- Images Success: {$results['images_success']}");
+        $this->log_message("- Images Failed: {$results['images_failed']}");
+        
+        if (!empty($results['errors'])) {
+            $this->log_message("Errors encountered:");
+            foreach ($results['errors'] as $error) {
+                $this->log_message("- " . $error);
+            }
+        }
+
+        return $results;
+
+    } catch (Exception $e) {
+        $this->log_message("Fatal error in process_import_data: " . $e->getMessage(), "error");
+        $this->log_message("Stack trace: " . $e->getTraceAsString(), "error");
+        throw $e;
+    }
+}
     /**
      * Clean up memory resources
      */
@@ -1046,7 +1077,7 @@ class Cemetery_Records_Import_Export {
             $post_data = array(
                 'post_title' => wp_strip_all_tags($title),
                 'post_type' => 'cemetery_record',
-                'post_status' => 'publish'
+               // 'post_status' => 'publish'
             );
 
             // If page_additional_info exists and is not empty, use it as post content
@@ -1721,6 +1752,7 @@ class Cemetery_Records_Import_Export {
             ),
             admin_url('edit.php?post_type=cemetery_record')
         ));
+        $this->log_message("Exit called after redirect");
         exit;
     }
 
@@ -2084,33 +2116,34 @@ class Cemetery_Records_Import_Export {
         }
     }
 
-    public function save_image_paths() {
-        if (!current_user_can('manage_options')) {
-            wp_die('Unauthorized access');
-        }
-
-        if (isset($_POST['extracted_images_path'])) {
-            $_SESSION['extracted_images_path'] = sanitize_text_field($_POST['extracted_images_path']);
-        }
-        
-        if (isset($_POST['source_pages_path'])) {
-            $_SESSION['source_pages_path'] = sanitize_text_field($_POST['source_pages_path']);
-        }
-
-        // Save paths to database as well for persistence
-        update_option('cemetery_records_extracted_images_path', $_SESSION['extracted_images_path'] ?? '');
-        update_option('cemetery_records_source_pages_path', $_SESSION['source_pages_path'] ?? '');
-
-        // Write session before sending response
-        session_write_close();
-
-        // Send JSON response
-        wp_send_json_success(array(
-            'message' => 'Paths saved successfully',
-            'extracted_path' => $_SESSION['extracted_images_path'] ?? '',
-            'source_path' => $_SESSION['source_pages_path'] ?? ''
-        ));
+ public function save_image_paths() {
+    if (!current_user_can('manage_options')) {
+        wp_die('Unauthorized access');
     }
+    
+    // Start session if needed
+    if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+        session_start();
+    }
+
+    if (isset($_POST['extracted_images_path'])) {
+        $_SESSION['extracted_images_path'] = sanitize_text_field($_POST['extracted_images_path']);
+    }
+    
+    if (isset($_POST['source_pages_path'])) {
+        $_SESSION['source_pages_path'] = sanitize_text_field($_POST['source_pages_path']);
+    }
+    
+    // Close session after writing
+    session_write_close();
+    
+    // Send JSON response
+    wp_send_json_success(array(
+        'message' => 'Paths saved successfully',
+        'extracted_path' => $_SESSION['extracted_images_path'] ?? '',
+        'source_path' => $_SESSION['source_pages_path'] ?? ''
+    ));
+}
     
     /**
      * Destructor to ensure proper cleanup
