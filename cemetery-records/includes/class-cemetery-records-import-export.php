@@ -241,7 +241,8 @@ public function init_session() {
     }
 public function init() {
     // Register the init_session method (if not done in constructor)
-    add_action('init', array($this, 'init_session'), 5);
+    add_action('admin_post_import_cemetery_records', [ $this, 'import_records' ]);
+
 
     // Check user capabilities before adding admin actions
     if (current_user_can('manage_options')) {
@@ -361,14 +362,15 @@ public function init() {
             <div class="card">
                 <h2><?php _e('Import Records', 'cemetery-records'); ?></h2>
                 <p><?php _e('Import cemetery records from a JSON file.', 'cemetery-records'); ?></p>
-                <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" enctype="multipart/form-data" id="cemetery-records-import-form">
-                    <?php wp_nonce_field('import_cemetery_records', 'cemetery_records_import_nonce'); ?>
-                    <input type="hidden" name="action" value="import_cemetery_records">
-                    
-                    <p>
-                        <label for="import_file"><?php _e('JSON File:', 'cemetery-records'); ?></label><br>
-                        <input type="file" name="import_file" id="import_file" accept=".json" required>
-                    </p>
+<form method="post"
+      action="<?php echo esc_url( admin_url('admin-post.php') ); ?>"
+      enctype="multipart/form-data">
+  <?php wp_nonce_field( 'import_cemetery_records', 'cemetery_records_import_nonce' ); ?>
+  <input type="hidden" name="action" value="import_cemetery_records">
+  
+  <label for="import_file">JSON file:</label>
+  <input type="file" name="import_file" id="import_file" required>
+ 
 
                     <div class="image-paths">
                         <p>
@@ -497,6 +499,27 @@ public function init() {
     }
 
     public function import_records() {
+        // At top of import_records(), before the guard:
+
+$flag_key = 'cemetery_records_import_in_progress';
+$done_key = 'cemetery_records_import_completed';
+
+// If we’ve ever completed an import, clear any leftover “in-progress” flag:
+if ( get_transient( $done_key ) ) {
+    delete_transient( $flag_key );
+    $this->log_message( "Cleared stale import flag after previous completion", 'info' );
+}
+
+// Now the original guard:
+$import_timestamp = get_transient( $flag_key );
+if ( $import_timestamp && $import_timestamp !== $this->current_import_timestamp ) {
+    wp_redirect( admin_url( 'edit.php?post_type=cemetery_record&page=cemetery-records-import-export&error=import_in_progress' ) );
+    exit;
+}
+
+// And then you go on to set the flag again…
+set_transient( $flag_key, $this->current_import_timestamp, 3600 );
+//-------------------------------------------------------------
         try {
             if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
                 session_start();
@@ -1012,7 +1035,7 @@ public function process_import_data($import_data, $extracted_images_path, $sourc
         }
         
         // Validate required fields
-        $required_fields = array('page_header', 'page_location');
+        $required_fields = array('page_header');
         foreach ($required_fields as $field) {
             if (!isset($record[$field]) || empty($record[$field])) {
                 $this->log_message("Missing required field: {$field}", "error");
@@ -1801,6 +1824,7 @@ public function process_import_data($import_data, $extracted_images_path, $sourc
         }
         return $redacted;
     }
+    // Moo
 
     private function normalize_image_path($filename) {
         // Split the path into directory and filename

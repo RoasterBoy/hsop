@@ -3,7 +3,7 @@
  * Plugin Name: Cemetery Records
  * Plugin URI: https://cemeteries.phillipston.org/
  * Description: A WordPress plugin for managing cemetery records with image support
- * Version: 1.3.12
+ * Version: 1.3.13
  * Author: Phillipston Historical Society
  * Author URI: https://phillipston.org/
  * License: GPL v2 or later
@@ -11,14 +11,13 @@
  * Text Domain: cemetery-records
  * Domain Path: /languages
  */
-
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
     die;
 }
 
 // Define plugin constants
-define('CEMETERY_RECORDS_VERSION', '1.3.12');
+define('CEMETERY_RECORDS_VERSION', '1.3.13');
 define('CEMETERY_RECORDS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CEMETERY_RECORDS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
