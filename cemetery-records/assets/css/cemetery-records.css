@@ -28,10 +28,13 @@
 }
 
 /* Public Styles */
+#page_additional_info {
+    height:40px;
+}
 .cemetery-record {
     margin: 20px 0;
     padding: 20px;
-    background: #fff;
+    background: pink;
     border: 1px solid #e5e5e5;
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
 }
