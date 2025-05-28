@@ -1,0 +1,17 @@
+/*
+ Theme Name:   Phillipston Cemetery Records
+ Theme URI:    http://cemeteries.phillipston.org
+ Description:  A child theme for handling cemetery records.
+ Author:       Karl Hakkarainen
+ Author URI:   https://phillipston.org
+ Template:     generatepress
+ Version:      1.0.0
+*/
+
+/* Your custom CSS from the previous step can go below this line */
+.list-item-with-thumbnail {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2em;
+    gap: 20px;
+}
