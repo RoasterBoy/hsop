@@ -3,7 +3,7 @@
  * Plugin Name: Cemetery Records
  * Plugin URI: https://cemeteries.phillipston.org/
  * Description: A WordPress plugin for managing cemetery records with image support
- * Version: 2.0.4
+ * Version: 2.0.6
  * Author: Phillipston Historical Society
  * Author URI: https://phillipston.org/
  * License: GPL v2 or later
@@ -14,7 +14,7 @@
 
 if (!defined('WPINC')) { die; }
 
-define('CEMETERY_RECORDS_VERSION', '2.0.4');
+define('CEMETERY_RECORDS_VERSION', '2.0.6'); // Updated version
 define('CEMETERY_RECORDS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CEMETERY_RECORDS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -54,71 +54,108 @@ class Cemetery_Records_Minimal {
     }
 
     public function add_meta_boxes() {
-        add_meta_box('cemetery_record_details', __('Record Details', 'cemetery-records'), array($this, 'render_details_meta_box'), 'cemetery_record', 'normal', 'high');
+        add_meta_box(
+            'cemetery_record_details',
+            __('Record Details', 'cemetery-records'),
+            array($this, 'render_details_meta_box'),
+            'cemetery_record',
+            'normal',
+            'high'
+        );
     }
 
-    public function render_details_meta_box($post) {
-        if ($source_attachment_id) {
-            echo '<hr><h4>' . __('Source Page Image:', 'cemetery-records') . '</h4>';
-            echo '<p>' . wp_get_attachment_image($source_attachment_id, 'medium') . '</p>';
-        }
-        if ($extracted_attachment_id) {
-            echo '<hr><h4>' . __('Extracted Image:', 'cemetery-records') . '</h4>';
-            echo '<p>' . wp_get_attachment_image($extracted_attachment_id, 'medium') . '</p>';
-        }
-        wp_nonce_field('cemetery_record_details_nonce', 'cemetery_record_details_nonce');
-        // These are the keys for the $fields array and also the 'name' attribute of the form inputs.
-        $fields_form_keys = array(
-            'page_header'          => __('Page Header (Title):', 'cemetery-records'),
-            'page_footer'          => __('Page Footer:', 'cemetery-records'),
-            'page_location'        => __('Location:', 'cemetery-records'),
-            'image_caption'        => __('Image Caption:', 'cemetery-records'),
-            'page_additional_info' => __('Additional Information:', 'cemetery-records'),
-            // For attachment IDs, the form key will be the meta key itself (starts with '_')
+public function render_details_meta_box($post) {
+        wp_nonce_field('cemetery_record_details_save', 'cemetery_record_details_nonce');
+
+        // Using actual meta keys as array keys and for form field names
+        $meta_fields = array(
+            '_page_header'                 => __('Page Header (Title):', 'cemetery-records'),
+            '_page_footer'                 => __('Page Footer:', 'cemetery-records'),
+            '_page_location'               => __('Location:', 'cemetery-records'),
+            '_image_caption'               => __('Image Caption:', 'cemetery-records'),
+            '_page_additional_info'        => __('Additional Information:', 'cemetery-records'),
             '_source_page_attachment_id'   => __('Source Page Attachment ID:', 'cemetery-records'),
             '_extracted_image_attachment_id' => __('Extracted Image Attachment ID:', 'cemetery-records')
         );
-        echo '<div>';
-        foreach ($fields_form_keys as $form_field_name => $label) {
-            // Determine the actual meta key to fetch (usually prefixed with '_')
-            $actual_meta_key = (substr($form_field_name, 0, 1) === '_') ? $form_field_name : '_' . $form_field_name;
-            $value = get_post_meta($post->ID, $actual_meta_key, true);
 
-            echo '<p><label for="' . esc_attr($form_field_name) . '">' . esc_html($label) . '</label><br>';
-            if ($form_field_name === 'page_additional_info') { 
-                echo '<textarea id="' . esc_attr($form_field_name) . '" name="' . esc_attr($form_field_name) . '" rows="4" style="width:100%;">' . esc_textarea($value) . '</textarea>';
+        echo '<div>';
+        foreach ($meta_fields as $meta_key => $label) {
+            $value = get_post_meta($post->ID, $meta_key, true);
+
+            echo '<p><label for="' . esc_attr($meta_key) . '">' . esc_html($label) . '</label><br>';
+            if ($meta_key === '_page_additional_info') {
+                echo '<textarea id="' . esc_attr($meta_key) . '" name="' . esc_attr($meta_key) . '" rows="4" style="width:100%;">' . esc_textarea($value) . '</textarea>';
             } else {
-                echo '<input type="text" id="' . esc_attr($form_field_name) . '" name="' . esc_attr($form_field_name) . '" value="' . esc_attr($value) . '" style="width:100%;">';
+                echo '<input type="text" id="' . esc_attr($meta_key) . '" name="' . esc_attr($meta_key) . '" value="' . esc_attr($value) . '" style="width:100%;">';
             }
             echo '</p>';
         }
         echo '</div>';
 
+        // Displaying images with links to their Media Library edit screen
         $source_attachment_id = get_post_meta($post->ID, '_source_page_attachment_id', true);
         $extracted_attachment_id = get_post_meta($post->ID, '_extracted_image_attachment_id', true);
 
-    }
-
-    public function save_post_meta($post_id) {
-        if (!isset($_POST['cemetery_record_details_nonce']) || !wp_verify_nonce($_POST['cemetery_record_details_nonce'], 'cemetery_record_details') || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || !current_user_can('edit_post', $post_id)) { return; }
-        // These keys match the 'name' attributes of the form fields.
-        $fields_to_save_from_form = array(
-            'page_header', 'page_footer', 'page_location', 'page_additional_info', 'image_caption',
-            '_source_page_attachment_id', '_extracted_image_attachment_id' 
-        );
-        foreach ($fields_to_save_from_form as $form_field_name) {
-            if (isset($_POST[$form_field_name])) {
-                // Determine the actual meta key to save (usually prefixed with '_')
-                $actual_meta_key = (substr($form_field_name, 0, 1) === '_') ? $form_field_name : '_' . $form_field_name;
-                
-                if ($form_field_name === '_source_page_attachment_id' || $form_field_name === '_extracted_image_attachment_id') {
-                    update_post_meta($post_id, $actual_meta_key, absint($_POST[$form_field_name]));
-                } else {
-                    update_post_meta($post_id, $actual_meta_key, sanitize_text_field(wp_unslash($_POST[$form_field_name])));
-                }
+        if ($source_attachment_id) {
+            $edit_link = get_edit_post_link($source_attachment_id);
+            echo '<hr><h4>' . __('Source Page Image:', 'cemetery-records') . '</h4>';
+            if ($edit_link) {
+                echo '<p><a href="' . esc_url($edit_link) . '" target="_blank" title="' . esc_attr__('Click to view in Media Library', 'cemetery-records') . '">' . wp_get_attachment_image($source_attachment_id, 'medium') . '</a></p>';
+                echo '<p><small>' . __('Click image to view in Media Library and zoom.', 'cemetery-records') . '</small></p>';
+            } else {
+                echo '<p>' . wp_get_attachment_image($source_attachment_id, 'medium') . '</p>';
+            }
+        }
+        if ($extracted_attachment_id) {
+            $edit_link = get_edit_post_link($extracted_attachment_id);
+            echo '<hr><h4>' . __('Extracted Image:', 'cemetery-records') . '</h4>';
+            if ($edit_link) {
+                echo '<p><a href="' . esc_url($edit_link) . '" target="_blank" title="' . esc_attr__('Click to view in Media Library', 'cemetery-records') . '">' . wp_get_attachment_image($extracted_attachment_id, 'medium') . '</a></p>';
+                echo '<p><small>' . __('Click image to view in Media Library and zoom.', 'cemetery-records') . '</small></p>';
+            } else {
+                echo '<p>' . wp_get_attachment_image($extracted_attachment_id, 'medium') . '</p>';
             }
         }
     }
+
+    public function save_post_meta($post_id) {
+        // Verify nonce
+        if (!isset($_POST['cemetery_record_details_nonce']) || !wp_verify_nonce($_POST['cemetery_record_details_nonce'], 'cemetery_record_details_save')) {
+            return;
+        }
+        // Check if it's an autosave
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        // Check permissions
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+
+        // Define which fields to save from the form (using actual meta keys)
+        $meta_keys_to_save = array(
+            '_page_header', '_page_footer', '_page_location', '_image_caption', '_page_additional_info',
+            '_source_page_attachment_id', '_extracted_image_attachment_id'
+        );
+
+        foreach ($meta_keys_to_save as $meta_key) {
+            if (isset($_POST[$meta_key])) {
+                $value = wp_unslash($_POST[$meta_key]);
+                if ($meta_key === '_source_page_attachment_id' || $meta_key === '_extracted_image_attachment_id') {
+                    update_post_meta($post_id, $meta_key, absint($value));
+                } else {
+                    update_post_meta($post_id, $meta_key, sanitize_text_field($value));
+                }
+            } else {
+                 // If a field isn't set (e.g., an empty textarea might not be),
+                 // you might want to delete the meta or save an empty string.
+                 // For simplicity, we'll just update if set.
+                 // update_post_meta($post_id, $meta_key, ''); // Example: save empty string if not set
+            }
+        }
+    }
+
+
 
     public function add_image_sizes() {
         add_image_size('cemetery-record-thumb', 300, 300, true);
@@ -138,7 +175,7 @@ function cemetery_records_render_import_export_page() {
         <h1><?php _e('Cemetery Records Import/Export/Delete', 'cemetery-records'); ?></h1>
         <div id="poststuff">
             <div class="postbox"> <h2 class="hndle"><span><?php _e('Export Records to JSON', 'cemetery-records'); ?></span></h2> <div class="inside"><p><?php _e('Click the button below to export all cemetery records to a JSON file.', 'cemetery-records'); ?></p><p><button id="cemetery-export-button" class="button button-primary"><?php _e('Start Export', 'cemetery-records'); ?></button></p><div class="progress-bar-wrapper"><div id="cemetery-export-progress-bar" class="progress-bar"></div></div><p id="cemetery-export-status" style="font-style: italic; margin-top:10px;"></p></div></div>
-            <div class="postbox"> <h2 class="hndle"><span><?php _e('Import Records from JSON', 'cemetery-records'); ?></span></h2> <div class="inside"><p><strong><?php _e('Important:', 'cemetery-records'); ?></strong> <?php _e('The importer expects image paths in your JSON (e.g., "my-image.jpg" or "folder/my-image.jpg") to be located in <code>wp-content/uploads/pagefiles/</code> for "source_page" fields and <code>wp-content/uploads/imgsrc/</code> for "extracted_image" fields.', 'cemetery-records'); ?></p><p><input type="file" id="cemetery-import-file" accept=".json,application/json"></p><p><button id="cemetery-import-button" class="button button-primary"><?php _e('Start Import', 'cemetery-records'); ?></button></p><div class="progress-bar-wrapper"><div id="cemetery-import-progress-bar" class="progress-bar"></div></div><p id="cemetery-import-status" style="font-style: italic; margin-top:10px;"></p></div></div>
+            <div class="postbox"> <h2 class="hndle"><span><?php _e('Import Records from JSON', 'cemetery-records'); ?></span></h2> <div class="inside"><p><strong><?php _e('Important:', 'cemetery-records'); ?></strong> <?php _e('The importer expects image paths in your JSON (e.g., "my-image.jpg" or "folder/my-image.jpg") to be located in <code>wp-content/uploads/pagefiles/</code> for "source_page" fields and <code>wp-content/uploads/imgsrc/</code> for "extracted_image" fields. For round-trip imports, it expects paths relative to the uploads directory (e.g., "2023/05/my-image.jpg").', 'cemetery-records'); ?></p><p><input type="file" id="cemetery-import-file" accept=".json,application/json"></p><p><button id="cemetery-import-button" class="button button-primary"><?php _e('Start Import', 'cemetery-records'); ?></button></p><div class="progress-bar-wrapper"><div id="cemetery-import-progress-bar" class="progress-bar"></div></div><p id="cemetery-import-status" style="font-style: italic; margin-top:10px;"></p></div></div>
             <div class="postbox"> <h2 class="hndle" style="color:#dc3545;"><span><?php _e('Danger Zone', 'cemetery-records'); ?></span></h2> <div class="inside"><p><strong><?php _e('WARNING:', 'cemetery-records'); ?></strong> <?php _e('This action will permanently delete ALL cemetery records and cannot be undone. Please backup your database before proceeding.', 'cemetery-records'); ?></p><p><button id="cemetery-delete-all-button" class="button"><?php _e('Delete All Records', 'cemetery-records'); ?></button></p><p id="cemetery-delete-status" style="font-style: italic; margin-top:10px; color:#dc3545;"></p></div></div>
         </div>
     </div>
@@ -155,87 +192,6 @@ function cemetery_export_preflight_handler() {
     if (!current_user_can('manage_options')) { wp_send_json_error(['message' => 'Permission denied.']); }
     $query = new WP_Query(['post_type' => 'cemetery_record', 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids']);
     wp_send_json_success(['total_records' => $query->post_count, 'batch_size' => 100, 'total_pages' => ($query->post_count > 0) ? ceil($query->post_count / 100) : 0]);
-}
-
-function cemetery_export_batch_handler() {
-    check_ajax_referer('cemetery_io_nonce', '_ajax_nonce');
-    if (!current_user_can('manage_options')) { wp_send_json_error(['message' => 'Permission denied.']); }
-    $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
-    $query = new WP_Query(['post_type' => 'cemetery_record', 'post_status' => 'any', 'posts_per_page' => 100, 'paged' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
-    $data = [];
-    $export_fields = [
-        'ID' => 'ID', 'Title' => 'post_title', 'Date' => 'post_date', 
-        'Location' => 'page_location', 'Additional Info' => 'page_additional_info', 
-        'Image Caption' => 'image_caption', 'Header' => 'page_header', 'Footer' => 'page_footer',
-        'Source Page Image URL' => '_source_page_attachment_id', 
-        'Extracted Image URL' => '_extracted_image_attachment_id'
-    ];
-    if ($query->have_posts()) {
-        foreach ($query->posts as $post_object) {
-            $row = [];
-            foreach ($export_fields as $header => $key) {
-                if ($key === 'ID') { $row[$header] = $post_object->ID; } 
-                elseif ($key === 'post_title') { $row[$header] = $post_object->post_title; } 
-                elseif ($key === 'post_date') { $row[$header] = $post_object->post_date; } 
-                elseif ($key === '_source_page_attachment_id' || $key === '_extracted_image_attachment_id') {
-                    $attachment_id = get_post_meta($post_object->ID, $key, true);
-                    $row[$header] = $attachment_id ? wp_get_attachment_url(absint($attachment_id)) : '';
-                }
-                else { $row[$header] = get_post_meta($post_object->ID, '_' . $key, true); }
-            }
-            $data[] = $row;
-        }
-    }
-    wp_send_json_success($data);
-}
-
-function cemetery_process_image_from_path($post_id, $path_from_json_value, $meta_key_for_attachment_id, $image_type) {
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
-    require_once(ABSPATH . 'wp-admin/includes/file.php');
-    require_once(ABSPATH . 'wp-admin/includes/media.php');
-
-    if (empty($path_from_json_value)) { return null; }
-
-    $upload_dir = wp_upload_dir();
-    $correct_subdirectory = '';
-
-    if ($image_type === 'source_page') { $correct_subdirectory = 'pagefiles/'; } 
-    elseif ($image_type === 'extracted_image') { $correct_subdirectory = 'imgsrc/'; } 
-    else { error_log("Cemetery Records: Unknown image type '{$image_type}' for post ID {$post_id}. Path: {$path_from_json_value}"); return null; }
-
-    $cleaned_path_from_json = trim(str_replace('..', '', $path_from_json_value));
-    $filename_to_use = $cleaned_path_from_json;
-
-    if (strpos($filename_to_use, $correct_subdirectory) === 0) {
-        $filename_to_use = substr($filename_to_use, strlen($correct_subdirectory));
-    } else {
-        $prefix_without_slash = rtrim($correct_subdirectory, '/');
-        if (strpos(strtolower($filename_to_use), strtolower($prefix_without_slash)) === 0 && strlen($filename_to_use) > strlen($prefix_without_slash) ) {
-            $filename_to_use = substr($filename_to_use, strlen($prefix_without_slash));
-        }
-    }
-    
-    $filename_to_use = ltrim($filename_to_use, '/');
-    if(empty($filename_to_use)){ error_log("Cemetery Records: Empty filename after processing '{$path_from_json_value}' for type '{$image_type}' and post ID {$post_id}."); return null; }
-
-    $final_relative_path_in_uploads = $correct_subdirectory . $filename_to_use;
-    $full_server_path = $upload_dir['basedir'] . '/' . $final_relative_path_in_uploads;
-    
-    if (!file_exists($full_server_path)) { error_log("Cemetery Records: Image file not found at path: " . $full_server_path . " (derived from JSON value '{$path_from_json_value}') for post ID " . $post_id); return null; }
-
-    $filetype = wp_check_filetype($filename_to_use, null);
-    if (!$filetype['type']) { error_log("Cemetery Records: Could not determine filetype for: " . esc_html($filename_to_use)); return null; }
-    
-    $attachment_title = preg_replace('/\.[^.]+$/', '', basename($filename_to_use));
-    $attachment_data = array('guid' => $upload_dir['url'] . '/' . $final_relative_path_in_uploads, 'post_mime_type' => $filetype['type'], 'post_title' => $attachment_title, 'post_content' => '', 'post_status' => 'inherit');
-    $attach_id = wp_insert_attachment($attachment_data, $full_server_path, $post_id);
-
-    if (!is_wp_error($attach_id)) {
-        $attach_meta = wp_generate_attachment_metadata($attach_id, $full_server_path);
-        wp_update_attachment_metadata($attach_id, $attach_meta);
-        update_post_meta($post_id, $meta_key_for_attachment_id, $attach_id);
-        return $attach_id;
-    } else { error_log("Cemetery Records: Error inserting attachment for " . esc_html($full_server_path) . ": " . $attach_id->get_error_message()); return null; }
 }
 
 function cemetery_import_batch_handler() {
@@ -274,15 +230,13 @@ function cemetery_import_batch_handler() {
         }
 
         if ($post_id && !is_wp_error($post_id)) {
-            // These keys are for the user's original source JSON file
             $original_source_meta_map = [ 
                 'page_location'        => 'page_location', 
                 'page_additional_info' => 'page_additional_info', 
                 'image_caption'        => 'image_caption', 
-                'page_header'          => 'page_header', // This is the one used for post_title, but also saved as meta
+                'page_header'          => 'page_header',
                 'page_footer'          => 'page_footer'
             ];
-            // These keys are from the plugin's own export (for round-trip)
             $round_trip_meta_map = [
                 'Location'        => 'page_location', 
                 'Additional Info' => 'page_additional_info', 
@@ -291,12 +245,11 @@ function cemetery_import_batch_handler() {
                 'Footer'          => 'page_footer'
             ];
 
-            // Iterate over the canonical internal meta keys the plugin uses (without '_')
             foreach ($original_source_meta_map as $original_json_key => $internal_meta_stem) {
                 $value_to_save = null;
-                if (isset($record[$original_json_key])) { // Check original source key first
+                if (isset($record[$original_json_key])) {
                     $value_to_save = sanitize_text_field($record[$original_json_key]);
-                } else { // If not found, check for round-trip key
+                } else { 
                     $round_trip_json_key = array_search($internal_meta_stem, $round_trip_meta_map, true);
                     if ($round_trip_json_key !== false && isset($record[$round_trip_json_key])) {
                         $value_to_save = sanitize_text_field($record[$round_trip_json_key]);
@@ -307,11 +260,145 @@ function cemetery_import_batch_handler() {
                 }
             }
 
-            if (isset($record['source_page'])) { cemetery_process_image_from_path($post_id, $record['source_page'], '_source_page_attachment_id', 'source_page'); }
-            if (isset($record['extracted_image'])) { cemetery_process_image_from_path($post_id, $record['extracted_image'], '_extracted_image_attachment_id', 'extracted_image'); }
+            if (isset($record['source_page'])) { 
+                cemetery_process_image_from_path($post_id, $record['source_page'], '_source_page_attachment_id', 'source_page'); 
+            }
+            if (isset($record['extracted_image'])) { 
+                cemetery_process_image_from_path($post_id, $record['extracted_image'], '_extracted_image_attachment_id', 'extracted_image'); 
+            }
         }
     }
     wp_send_json_success(['created' => $created, 'updated' => $updated]);
+}
+
+function cemetery_process_image_from_path($post_id, $path_from_json_value, $meta_key_for_attachment_id, $image_type) {
+    // Ensure WordPress media functions are available
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/media.php');
+
+    $trimmed_path = trim($path_from_json_value);
+    if (empty($trimmed_path)) {
+        error_log("Cemetery Records (Post ID: {$post_id}): Empty image path provided for {$image_type}.");
+        return null;
+    }
+
+    $upload_dir = wp_upload_dir();
+    $path_meta_key = str_replace('_id', '_path', $meta_key_for_attachment_id); // e.g., _source_page_attachment_path
+    $is_staging_path = (strpos($trimmed_path, 'pagefiles/') === 0 || strpos($trimmed_path, 'imgsrc/') === 0 || strpos($trimmed_path, '/') === false);
+
+    // CASE 1: Initial import from a staging directory (e.g., "image.jpg" or "pagefiles/image.jpg")
+    if ($is_staging_path) {
+        $source_file_in_staging = '';
+        if (strpos($trimmed_path, '/') === false) { // Simple filename, e.g., "image.jpg"
+            $staging_subdir = ($image_type === 'source_page') ? 'pagefiles/' : 'imgsrc/';
+            $source_file_in_staging = $upload_dir['basedir'] . '/' . $staging_subdir . $trimmed_path;
+        } else { // Path includes staging dir, e.g., "pagefiles/image.jpg"
+            $source_file_in_staging = $upload_dir['basedir'] . '/' . $trimmed_path;
+        }
+
+        $original_filename = basename($trimmed_path);
+        $sanitized_filename = sanitize_file_name($original_filename);
+
+        // Check for duplicates in the main Media Library (not staging folders) using the sanitized name
+        global $wpdb;
+        $duplicate_check_sql = $wpdb->prepare(
+            "SELECT pm.post_id, pm.meta_value FROM `{$wpdb->postmeta}` pm
+             JOIN `{$wpdb->posts}` p ON pm.post_id = p.ID
+             WHERE pm.meta_key = '_wp_attached_file'
+             AND p.post_type = 'attachment'
+             AND pm.meta_value LIKE %s",
+            '%' . $wpdb->esc_like($sanitized_filename)
+        );
+        $existing_media_library_attachment = $wpdb->get_row($duplicate_check_sql);
+
+        if ($existing_media_library_attachment && file_exists($upload_dir['basedir'] . '/' . $existing_media_library_attachment->meta_value)) {
+            $existing_id = $existing_media_library_attachment->post_id;
+            $existing_relative_path = $existing_media_library_attachment->meta_value;
+            update_post_meta($post_id, $meta_key_for_attachment_id, $existing_id);
+            update_post_meta($post_id, $path_meta_key, $existing_relative_path);
+            error_log("Cemetery Records (Post ID: {$post_id}): Re-used existing Media Library attachment ID {$existing_id} for staging image '{$original_filename}'.");
+            return $existing_id;
+        }
+
+        // If no duplicate found, proceed to sideload the original file from staging
+        if (!file_exists($source_file_in_staging)) {
+            error_log("Cemetery Records (Post ID: {$post_id}): Staging image file not found at '{$source_file_in_staging}'.");
+            return null;
+        }
+        
+        $file_array = array(
+            'name'     => $original_filename, // Use the original filename for the upload
+            'tmp_name' => $source_file_in_staging
+        );
+
+        $attach_id = media_handle_sideload($file_array, $post_id, null);
+
+        if (is_wp_error($attach_id)) {
+            error_log("Cemetery Records (Post ID: {$post_id}): Error sideloading image '{$original_filename}': " . $attach_id->get_error_message());
+            return null;
+        } else {
+            $new_relative_path = get_post_meta($attach_id, '_wp_attached_file', true);
+            update_post_meta($post_id, $meta_key_for_attachment_id, $attach_id);
+            update_post_meta($post_id, $path_meta_key, $new_relative_path);
+            error_log("Cemetery Records (Post ID: {$post_id}): Successfully sideloaded '{$original_filename}' as attachment ID {$attach_id}. Path: {$new_relative_path}");
+            return $attach_id;
+        }
+    }
+    // CASE 2: Round-trip import (path is like "2023/05/image.jpg")
+    else {
+        $target_relative_path = ltrim($trimmed_path, '/');
+        $full_target_path_on_server = $upload_dir['basedir'] . '/' . $target_relative_path;
+
+        global $wpdb;
+        $existing_attachment_id = $wpdb->get_var($wpdb->prepare(
+            "SELECT post_id FROM `{$wpdb->postmeta}` WHERE meta_key = '_wp_attached_file' AND meta_value = %s",
+            $target_relative_path
+        ));
+
+        if ($existing_attachment_id && file_exists($full_target_path_on_server)) {
+            update_post_meta($post_id, $meta_key_for_attachment_id, $existing_attachment_id);
+            update_post_meta($post_id, $path_meta_key, $target_relative_path);
+            error_log("Cemetery Records (Post ID: {$post_id}): Re-used existing attachment ID {$existing_attachment_id} for round-trip image '{$target_relative_path}'.");
+            return $existing_attachment_id;
+        } else {
+            error_log("Cemetery Records (Post ID: {$post_id}): Round-trip image '{$target_relative_path}' not found as an existing attachment or file missing. Path: {$full_target_path_on_server}");
+            return null;
+        }
+    }
+}
+
+function cemetery_export_batch_handler() {
+    check_ajax_referer('cemetery_io_nonce', '_ajax_nonce');
+    if (!current_user_can('manage_options')) { wp_send_json_error(['message' => 'Permission denied.']); }
+    $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
+    $query = new WP_Query(['post_type' => 'cemetery_record', 'post_status' => 'any', 'posts_per_page' => 100, 'paged' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
+    $data = [];
+    $export_fields = [
+        'ID' => 'ID', 'Title' => 'post_title', 'Date' => 'post_date', 
+        'Location' => 'page_location', 'Additional Info' => 'page_additional_info', 
+        'Image Caption' => 'image_caption', 'Header' => 'page_header', 'Footer' => 'page_footer',
+        'source_page' => '_source_page_attachment_id', 
+        'extracted_image' => '_extracted_image_attachment_id'
+    ];
+    if ($query->have_posts()) {
+        foreach ($query->posts as $post_object) {
+            $row = [];
+            foreach ($export_fields as $header => $key) {
+                if ($key === 'ID') { $row[$header] = $post_object->ID; } 
+                elseif ($key === 'post_title') { $row[$header] = $post_object->post_title; } 
+                elseif ($key === 'post_date') { $row[$header] = $post_object->post_date; } 
+                elseif ($key === '_source_page_attachment_id' || $key === '_extracted_image_attachment_id') {
+                    $path_meta_key = str_replace('_id', '_path', $key); 
+                    $path_value = get_post_meta($post_object->ID, $path_meta_key, true);
+                    $row[$header] = $path_value ? $path_value : '';
+                }
+                else { $row[$header] = get_post_meta($post_object->ID, '_' . $key, true); }
+            }
+            $data[] = $row;
+        }
+    }
+    wp_send_json_success($data);
 }
 
 function cemetery_delete_all_batch_handler() {
@@ -328,3 +415,4 @@ register_activation_hook(__FILE__, function () { cemetery_records_get_instance()
 register_deactivation_hook(__FILE__, 'flush_rewrite_rules');
 add_filter('single_template', function ($template) { if (is_singular('cemetery_record')) { $custom_template = CEMETERY_RECORDS_PLUGIN_DIR . 'templates/single-cemetery_record.php'; if (file_exists($custom_template)) { return $custom_template; } } return $template; });
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links) { $settings_link = '<a href="' . admin_url('edit.php?post_type=cemetery_record&page=cemetery-records-import-export') . '">' . __('Import/Export', 'cemetery-records') . '</a>'; array_unshift($links, $settings_link); return $links; });
+
