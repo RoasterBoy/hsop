@@ -378,6 +378,8 @@ function cemetery_export_batch_handler() {
         'ID' => 'ID', 'Title' => 'post_title', 'Date' => 'post_date', 
         'Location' => 'page_location', 'Additional Info' => 'page_additional_info', 
         'Image Caption' => 'image_caption', 'Header' => 'page_header', 'Footer' => 'page_footer',
+	'Plot Number' => 'plot_number', // Custom Records
+        'Plot Data' => 'plot_number', // Custom Records
         'source_page' => '_source_page_attachment_id', 
         'extracted_image' => '_extracted_image_attachment_id'
     ];
