@@ -79,16 +79,18 @@ class Cemetery_Records_Import_Export {
     private $is_processing_import_action = false;
     private $current_import_timestamp = null;
 
-    private $default_fields = array(
-        'extracted_image',
-        'image_caption',
-        'page_additional_info',
-        'page_footer',
-        'page_header',
-        'page_location',
-        'source_page',
-        'record_uuid'
-    );
+private $default_fields = array(
+    'extracted_image',
+    'image_caption',
+    'page_additional_info',
+    'page_footer',
+    'page_header',
+    'page_location',
+    'source_page',
+    'record_uuid',
+    'plot_number', // Add this line
+    'plot_data'    // Add this line
+);
 
     private $log_file;
     private $import_start_time;
@@ -610,7 +612,7 @@ class Cemetery_Records_Import_Export {
                 // Handle special cases for image fields
                 if (($field === 'extracted_image' || $field === 'source_page') && !empty($value)) {
                     // Get the original filename if it exists
-                    $original_name = get_post_meta($value, "_{$field}_original_name", true);
+                    $original_name = get_post_meta($value, "{$field}_original_name", true);
                     
                     if ($original_name) {
                         // Use the original filename if available
