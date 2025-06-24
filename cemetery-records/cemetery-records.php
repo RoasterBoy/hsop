@@ -19,14 +19,20 @@ define('CEMETERY_RECORDS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CEMETERY_RECORDS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 class Cemetery_Records_Minimal {
-    public function init() {
-        $this->register_post_type();
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
-        add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
-        add_action('save_post_cemetery_record', array($this, 'save_post_meta'));
-        add_action('after_setup_theme', array($this, 'add_image_sizes'));
-        $this->setup_capabilities();
-    }
+// Update your existing init() method to include the layout filters:
+public function init() {
+    $this->register_post_type();
+    add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
+    add_action('add_meta_boxes', array($this, 'add_meta_boxes'));
+    add_action('save_post_cemetery_record', array($this, 'save_post_meta'));
+    add_action('after_setup_theme', array($this, 'add_image_sizes'));
+    
+    // Add these lines to force proper layout (optional - only if you want to force single column)
+    add_filter('get_user_option_screen_layout_cemetery_record', array($this, 'force_single_column_layout'), 10, 2);
+    add_filter('screen_layout_columns', array($this, 'force_single_column_layout'), 10, 2);
+    
+    $this->setup_capabilities();
+}
 
     public function setup_capabilities() {
         $role = get_role('administrator');
@@ -53,30 +59,40 @@ class Cemetery_Records_Minimal {
         }
     }
 
-    public function add_meta_boxes() {
-        add_meta_box(
-            'cemetery_record_details',
-            __('Record Details', 'cemetery-records'),
-            array($this, 'render_details_meta_box'),
-            'cemetery_record',
-            'normal',
-            'high'
-        );
+public function add_meta_boxes() {
+    add_meta_box(
+        'cemetery_record_details',
+        __('Record Details', 'cemetery-records'),
+        array($this, 'render_details_meta_box'),
+        'cemetery_record',
+        'advanced',  // Changed from 'normal' to 'advanced'
+        'high'
+    );
+}
+
+// Additionally, add this method to your Cemetery_Records_Minimal class to force the layout
+public function force_single_column_layout($columns, $screen) {
+    if ($screen == 'cemetery_record') {
+        $columns['cemetery_record'] = 1;
     }
+    return $columns;
+}
 
 public function render_details_meta_box($post) {
         wp_nonce_field('cemetery_record_details_save', 'cemetery_record_details_nonce');
 
         // Using actual meta keys as array keys and for form field names
-        $meta_fields = array(
-            '_page_header'                 => __('Page Header (Title):', 'cemetery-records'),
-            '_page_footer'                 => __('Page Footer:', 'cemetery-records'),
-            '_page_location'               => __('Location:', 'cemetery-records'),
-            '_image_caption'               => __('Image Caption:', 'cemetery-records'),
-            '_page_additional_info'        => __('Additional Information:', 'cemetery-records'),
-            '_source_page_attachment_id'   => __('Source Page Attachment ID:', 'cemetery-records'),
-            '_extracted_image_attachment_id' => __('Extracted Image Attachment ID:', 'cemetery-records')
-        );
+$meta_fields = array(
+    '_page_header'                 => __('Page Header (Title):', 'cemetery-records'),
+    '_page_footer'                 => __('Page Footer:', 'cemetery-records'),
+    '_page_location'               => __('Location:', 'cemetery-records'),
+    '_image_caption'               => __('Image Caption:', 'cemetery-records'),
+    '_page_additional_info'        => __('Additional Information:', 'cemetery-records'),
+    '_plot_number'                 => __('Plot Number:', 'cemetery-records'),           // Add this
+    '_plot_data'                   => __('Plot Data:', 'cemetery-records'),             // Add this
+    '_source_page_attachment_id'   => __('Source Page Attachment ID:', 'cemetery-records'),
+    '_extracted_image_attachment_id' => __('Extracted Image Attachment ID:', 'cemetery-records')
+);
 
         echo '<div>';
         foreach ($meta_fields as $meta_key => $label) {
@@ -133,10 +149,11 @@ public function render_details_meta_box($post) {
         }
 
         // Define which fields to save from the form (using actual meta keys)
-        $meta_keys_to_save = array(
-            '_page_header', '_page_footer', '_page_location', '_image_caption', '_page_additional_info',
-            '_source_page_attachment_id', '_extracted_image_attachment_id'
-        );
+$meta_keys_to_save = array(
+    '_page_header', '_page_footer', '_page_location', '_image_caption', '_page_additional_info',
+    '_plot_number', '_plot_data',  // Add these
+    '_source_page_attachment_id', '_extracted_image_attachment_id'
+);
 
         foreach ($meta_keys_to_save as $meta_key) {
             if (isset($_POST[$meta_key])) {
@@ -165,7 +182,8 @@ public function render_details_meta_box($post) {
 function cemetery_records_get_instance() { static $instance = null; if ($instance === null) { $instance = new Cemetery_Records_Minimal(); } return $instance; }
 add_action('init', function () { cemetery_records_get_instance()->init(); }, 0);
 
-add_action('admin_menu', function () { add_submenu_page('edit.php?post_type=cemetery_record', __('Import/Export', 'cemetery-records'), __('Import/Export', 'cemetery-records'), 'manage_options', 'cemetery-records-import-export', 'cemetery_records_render_import_export_page'); });
+ add_action('admin_menu', function () { add_submenu_page('edit.php?post_type=cemetery_record', __('Import/Export', 'cemetery-records'), __('Import/Export', 'cemetery-records'), 'manage_options', 'cemetery-records-import-export', 'cemetery_records_render_import_export_page'); });
+
 
 function cemetery_records_render_import_export_page() {
     if (!current_user_can('manage_options')) { wp_die(__('You do not have sufficient permissions to access this page.')); }
@@ -230,35 +248,40 @@ function cemetery_import_batch_handler() {
         }
 
         if ($post_id && !is_wp_error($post_id)) {
-            $original_source_meta_map = [ 
-                'page_location'        => 'page_location', 
-                'page_additional_info' => 'page_additional_info', 
-                'image_caption'        => 'image_caption', 
-                'page_header'          => 'page_header',
-                'page_footer'          => 'page_footer'
-            ];
-            $round_trip_meta_map = [
-                'Location'        => 'page_location', 
-                'Additional Info' => 'page_additional_info', 
-                'Image Caption'   => 'image_caption', 
-                'Header'          => 'page_header', 
-                'Footer'          => 'page_footer'
+			
+// ... inside the cemetery_import_batch_handler function, after the if ($post_id && !is_wp_error($post_id)) { check
+
+            // Definitive map of internal meta stems to their primary, human-readable JSON keys.
+            $meta_map = [
+                'page_location'        => 'Location',
+                'page_additional_info' => 'Additional Info',
+                'image_caption'        => 'Image Caption',
+                'page_header'          => 'Header',
+                'page_footer'          => 'Footer',
+                'plot_number'          => 'Plot Number',
+                'plot_data'            => 'Plot Data'
             ];
 
-            foreach ($original_source_meta_map as $original_json_key => $internal_meta_stem) {
+            foreach ($meta_map as $meta_key_stem => $json_key) {
                 $value_to_save = null;
-                if (isset($record[$original_json_key])) {
-                    $value_to_save = sanitize_text_field($record[$original_json_key]);
-                } else { 
-                    $round_trip_json_key = array_search($internal_meta_stem, $round_trip_meta_map, true);
-                    if ($round_trip_json_key !== false && isset($record[$round_trip_json_key])) {
-                        $value_to_save = sanitize_text_field($record[$round_trip_json_key]);
-                    }
+
+                // Prioritize the new, human-readable JSON key (e.g., "Plot Number")
+                if (isset($record[$json_key])) {
+                    $value_to_save = sanitize_text_field($record[$json_key]);
                 }
-                if ($value_to_save !== null) { 
-                    update_post_meta($post_id, '_' . $internal_meta_stem, $value_to_save); 
+                // Fallback for a legacy format where the JSON key might match the meta stem (e.g., "plot_number")
+                elseif (isset($record[$meta_key_stem])) {
+                    $value_to_save = sanitize_text_field($record[$meta_key_stem]);
+                }
+
+                if ($value_to_save !== null) {
+                    update_post_meta($post_id, '_' . $meta_key_stem, $value_to_save);
                 }
             }
+
+            // ... The rest of the function continues below (processing images etc.)
+
+
 
             if (isset($record['source_page'])) { 
                 cemetery_process_image_from_path($post_id, $record['source_page'], '_source_page_attachment_id', 'source_page'); 
@@ -379,7 +402,7 @@ function cemetery_export_batch_handler() {
         'Location' => 'page_location', 'Additional Info' => 'page_additional_info', 
         'Image Caption' => 'image_caption', 'Header' => 'page_header', 'Footer' => 'page_footer',
 	'Plot Number' => 'plot_number', // Custom Records
-        'Plot Data' => 'plot_number', // Custom Records
+        'Plot Data' => 'plot_data', // Custom Records
         'source_page' => '_source_page_attachment_id', 
         'extracted_image' => '_extracted_image_attachment_id'
     ];
