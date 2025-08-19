@@ -36,32 +36,10 @@ get_header(); ?>
         ?>
     </div>
 
-    <div class="cemetery-record-images">
-        <?php
-        $extracted_image_id = get_post_meta(get_the_ID(), '_extracted_image', true);
-        if ($extracted_image_id) {
-            $image_caption = get_post_meta(get_the_ID(), '_image_caption', true);
-            ?>
-            <div class="cemetery-record-image">
-                <?php echo wp_get_attachment_image($extracted_image_id, 'large'); ?>
-                <?php if ($image_caption) : ?>
-                    <div class="cemetery-record-image-caption"><?php echo esc_html($image_caption); ?></div>
-                <?php endif; ?>
-            </div>
-            <?php
-        }
-        
-        $source_page_id = get_post_meta(get_the_ID(), '_source_page', true);
-        if ($source_page_id) {
-            echo '<div class="cemetery-record-image">' . wp_get_attachment_image($source_page_id, 'large') . '</div>';
-        }
-        ?>
-    </div>
-
     <div class="cemetery-record-footer">
         <?php
         $footer = get_post_meta(get_the_ID(), '_page_footer', true);
-        $header = get_post_meta(get_the_ID(), '_page_header', true);
+//        $header = get_post_meta(get_the_ID(), '_page_header', true);
         $additional_info = get_post_meta(get_the_ID(), '_page_additional_info', true);
 
         if ($header) {
@@ -75,6 +53,30 @@ get_header(); ?>
         }
         ?>
     </div>
+    <div class="cemetery-record-images">
+        <?php
+        // Fixed: Use correct meta key for extracted image
+        $extracted_image_id = get_post_meta(get_the_ID(), '_extracted_image_attachment_id', true);
+        if ($extracted_image_id) {
+            $image_caption = get_post_meta(get_the_ID(), '_image_caption', true);
+            ?>
+            <div class="cemetery-record-image">
+                <?php echo wp_get_attachment_image($extracted_image_id, 'large'); ?>
+                <?php if ($image_caption) : ?>
+                    <div class="cemetery-record-image-caption"><?php echo esc_html($image_caption); ?></div>
+                <?php endif; ?>
+            </div>
+            <?php
+        }
+        
+        // Fixed: Use correct meta key for source page image
+        $source_page_id = get_post_meta(get_the_ID(), '_source_page_attachment_id', true);
+        if ($source_page_id) {
+            echo '<div class="cemetery-record-image">' . wp_get_attachment_image($source_page_id, 'large') . '</div>';
+        }
+        ?>
+    </div>
+
 </div>
 
 <?php get_footer(); ?>
