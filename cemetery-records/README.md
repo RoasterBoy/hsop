@@ -3,7 +3,7 @@
 A WordPress plugin for managing cemetery records with image support. This plugin allows you to import, manage, and display cemetery records with associated images and metadata.
 
 ## Version
-1.3.5
+2.1.1
 
 ## Features
 - Import cemetery records from JSON files
@@ -12,6 +12,9 @@ A WordPress plugin for managing cemetery records with image support. This plugin
 - Image handling and attachment management
 - Import/Export functionality
 - Administrator capabilities management
+
+### 2.1.2 Update
+- Reordered elements on public record page (single-cemetery-record.php)
 
 ## Requirements
 - WordPress 5.2 or higher
